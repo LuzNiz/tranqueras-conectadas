@@ -1,0 +1,297 @@
+:root {
+    --color-principal: cadetblue;
+    --color-2: #061225;
+}
+
+* {
+    font-family: 'Raleway', sans-serif;
+}
+
+*::-webkit-scrollbar {
+    width: 3px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgb(176, 176, 177);
+    overflow-y: hidden;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #061225;
+    border-radius: 0px;
+    border: 3px solid #061225
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.layer-control {
+    position: absolute;
+    top: 90px;
+    left: 15px;
+    z-index: 2000;
+}
+
+.leaflet-routing-container {
+    padding: 0.5em;
+    border: none;
+    border-radius: 15px 15px 0px 0px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-scrolled {
+    height: max-content;
+}
+
+#map {
+    width: 100%;
+    height: 91.5%;
+    padding: 0;
+    margin: 0;
+}
+
+.leaflet-control-layers-toggle {
+    background-color: var(--color-principal);
+    border-radius: 10px;
+}
+
+.leaflet-control-layers {
+    border-radius: 14px;
+}
+
+.leaflet-routing-container-hide .leaflet-routing-collapse-btn {
+    background-image: url('../../../../images/routing-icon.png') !important;
+}
+
+
+header {
+    height: 2.5em;
+    display: flex;
+    background-color: var(--color-principal);
+    padding: 0.5em 2em;
+    justify-content: space-between;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+header> :first-child {
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+header> :first-child>a {
+    width: 25%;
+}
+
+header> :first-child>a>img {
+    width: 100%;
+}
+
+header> :first-child>h4 {
+    margin-left: 2em;
+    color: white;
+}
+
+header> :first-child,
+header> :last-child {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.button {
+    border: none;
+    border-radius: 10px;
+    padding: 1em 2em;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    color: white;
+    background-color: #061225;
+}
+
+.box-shadow {
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+.button-control{
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-principal);
+}
+
+.button-control:hover{
+    cursor: pointer;
+}
+
+.button-control > img {
+    width: 90%;
+}
+
+.help-button {
+    width: 2.3em;
+    display: flex;
+    justify-content: center;
+    margin-left: 2em;
+}
+
+.help-button:hover {
+    transform: scale(1.1);
+}
+
+.help-button>img {
+    height: 99%;
+    align-self: center;
+}
+
+.help-button :hover {
+    cursor: pointer;
+}
+
+
+.label-marker {
+    font-size: 1.5em;
+}
+
+.selected {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.collapse-button:hover{
+    cursor: pointer;
+}
+
+@media (min-width: 1586px) {
+
+    #map {
+        height: 94.5%;
+    }
+
+    .leaflet-routing-container {
+        height: max-content;
+        width: 100%;
+        overflow-y: scroll;
+    }
+    
+    header> :first-child>a {
+        width: 20%;
+    }
+
+    header> :first-child>img {
+        width: 20%;
+    }
+
+    header> :first-child>img {
+        width: 30%;
+    }
+
+    *::-webkit-scrollbar,
+    *::-webkit-scrollbar-track,
+    *::-webkit-scrollbar-thumb {
+        visibility: hidden;
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    #map {
+        height: 94%;
+    }
+
+    body {
+        position: absolute;
+    }
+
+
+    header {
+        padding: 0.6em 0.8em 0.6em 0.8em;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header> :first-child {
+        display: flex;
+        width: 25%;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .menu-toggle {
+        width: 55%;
+        background-color: var(--color-principal);
+        position: absolute;
+        opacity: 0.9;
+        top: 3.701em;
+        height: 82vh;
+        z-index: 3000;
+        padding: 1em;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    }
+
+    .menu-toggle>h3 {
+        font-size: 1.5em;
+        margin: 0.5em 1em 1.5em 0.5em;
+        color: white;
+        font-weight: bold;
+    }
+
+    .menu-toggle> :nth-child(2)>li {
+        height: 2em;
+        list-style: none;
+        font-size: 1.2em;
+    }
+
+    .menu-toggle> :last-child {
+        font-size: 0.8em;
+        color: #e0dfdf;
+        align-self: flex-end;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .button {
+        padding: 0.5em;
+        width: 80%;
+        background-color: #061225;
+        color: white;
+    }
+
+
+    .help-button {
+        width: 8%;
+        display: flex;
+        margin-left: 1em;
+    }
+
+
+    .leaflet-control-zoom {
+        display: none;
+    }
+
+    *::-webkit-scrollbar,
+    *::-webkit-scrollbar-track,
+    *::-webkit-scrollbar-thumb {
+        visibility: hidden;
+    }
+
+    .message-container {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+    }
+}

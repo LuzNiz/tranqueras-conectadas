@@ -1,0 +1,99 @@
+.button-home {
+    width: 38px;
+    height: 38px;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    z-index: 2000;
+    justify-content: center;
+    position: fixed;
+    top: 147px;
+    left: 9.5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.button-home>img {
+    width: 80%;
+    height: 80%;
+    align-self: center;
+}
+
+@media (min-width: 1586px){
+    .header-navigator > :first-child{
+        width: 15%;
+    }
+    .header-navigator > :first-child >img {
+        width: 40%;
+        height: 100%;
+    }
+
+    .leaflet-routing-container {
+        position: fixed;
+        bottom: 0px;
+        left: 100em;
+        width: 100%;
+        z-index: 5000;
+    }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px){
+    .button-home {
+        width: 47px;
+        height: 47px;
+        top: 74px;
+    }
+
+    .leaflet-routing-container {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        height: max-content;
+        width: 100%;
+        overflow-y: scroll;
+        z-index: 5000;
+    }
+
+    .leaflet-right {
+        width: 100%;
+    }
+
+    .leaflet-routing-container-hide {
+        position: fixed;
+        right: 5px;
+        top: 5em;
+    }
+
+    .leaflet-right .leaflet-routing-container.leaflet-routing-container-hide {
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        overflow: hidden;
+    }
+
+    .leaflet-routing-container-hide .leaflet-routing-collapse-btn {
+        width: 40px;
+        height: 36px;
+        background-size: 30px;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .button-home {
+        width: 47px;
+        height: 47px;
+    }
+
+    .button-home>img {
+        width: 80%;
+        height: 80%;
+    }
+
+    .header-navigator > :first-child{
+        width: 25%;
+    }
+    .header-navigator > :first-child >img {
+        width: 100%;
+        height: 100%;
+    }
+}

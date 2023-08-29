@@ -1,0 +1,83 @@
+{
+    "items" : [
+        {
+            "type": "basemap",
+            "weight": 1,
+            "name": "Mapas base",
+            "short_abstract": "",
+            "class": "",
+            "seccion": "mapasbase",
+            "capas": [
+                {
+                    "titulo": "OSM Standard",
+                    "nombre": "open_imagery",
+                    "servicio": "tms",
+                    "version": "1.0.0",
+                    "attribution": "© OpenStreetMap",
+                    "host": "http://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    "legendImg": "src/styles/images/osm_standard_map.png",
+                    "peso": 10,
+                    "selected": true,
+                    "zoom": {
+                        "min": 3,
+                        "max": 21,
+                        "nativeMin": 3,
+                        "nativeMax": 21
+                    }
+                },
+                {
+                    "titulo": "Google Maps",
+                    "nombre": "Google",
+                    "servicio": "tms",
+                    "version": "1.0.0",
+                    "selected": false,
+                    "attribution": "Google Maps 2023 © Google",
+                    "host": "https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}",
+                    "legendImg": "src/styles/images/google-maps-map.png",
+                    "peso": 20,
+                    "zoom": {
+                        "min": 3,
+                        "max": 21,
+                        "nativeMin": 3,
+                        "nativeMax": 21
+                    }
+                },
+                {
+                    "titulo": "Google Satellite",
+                    "nombre": "Google",
+                    "servicio": "tms",
+                    "version": "1.0.0",
+                    "selected": false,
+                    "attribution": "Google Satellite 2023 © Google",
+                    "host": " http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}",
+                    "legendImg": "src/styles/images/google-maps-map.png",
+                    "peso": 20,
+                    "zoom": {
+                        "min": 3,
+                        "max": 21,
+                        "nativeMin": 3,
+                        "nativeMax": 21
+                    }
+                }
+            ]
+        },
+        {
+            "type": "WFS",
+            "peso": 80,
+            "nombre": "Tranqueras Conectadas",
+            "attribution": "Municipalidad de Las Flores",
+            "short_abstract": "Tranqueras Conectadas",
+            "class": "",
+            "layers": [
+                "cuarteles",
+                "tranqueras_cpr_DEMO",
+                "tranqueras_patentes_colocadas"
+                
+            ],
+            "seccion": "tranqueras-conectadas",
+            "servicio": "WFS",
+            "version": "2.0.0",
+            "host": "http://mapas.lasflores.net.ar:8080/geoserver/tranqueras_conectadas/wfs"
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "instructions" : [
+        {
+            "title": "Localización de Tranquera",
+            "description": "Haz 'click' sobre la <span>herramienta de búsqueda </span>ubicada en la parte superior e ingresá el número o nombre del dato que deseas localizar",
+            "img": "../../../../../images/help-images/busqueda-tranqueras.png"
+        }
+    ]
+}

@@ -1,0 +1,132 @@
+body {
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+main > div,
+li > div {
+  display: flex;
+  padding-bottom: 0.5em;
+}
+
+main {
+  width: 90%;
+  padding: 2em;
+  display: grid;
+}
+
+main> :first-child > h3 {
+  font-size: 2em;
+  margin: 0.1em;
+}
+.instructions_list {
+  list-style: none;
+  padding: 0%;
+}
+
+.instructions_list  li {
+  padding: 0.1em 1em 0.1em 1em;
+  width: 100%;
+  margin-bottom: 0.5em;
+  border-radius: 5px;
+  background-color: #fcfafa;
+}
+
+.instructions_list  li > h3{
+  font-weight: 400;
+}
+
+.instructions_list li:hover {
+  background-color: rgb(218, 217, 217);
+}
+
+.instructions_list > li :last-child >:last-child {
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  width: 25em;
+}
+
+.instructions_list div,
+.instructions_list p {
+  width: 95%;
+}
+
+.instructions_list div{
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.icon-reference {
+  width: 25px;
+  height: 25px;
+}
+
+.button {
+  width: 4%;
+  height: auto;
+  justify-self: center;
+  text-decoration: none;
+}
+
+span {
+  font-weight: bold;
+}
+
+@media (min-width: 1586px) {
+
+  header> :first-child>a {
+      width: 20%;
+  }
+
+  header> :first-child>img {
+      width: 30%;
+  }
+
+  .button {
+    width: 3%;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+
+  .instructions_list {
+    width: 93%;
+    padding: 0.2em;
+  }
+
+  header > :first-child {
+    height: 100%;
+    width: 90%;
+  }
+  header> :first-child>a{
+    width: 40%;
+  } 
+  header> :first-child> :last-child{
+    width: 100%;
+  } 
+  main {
+    padding: 1em;
+  }
+
+  main> :first-child > h3 {
+    width: 90%;
+    font-size: 1.5em;
+    margin: 0.1em;
+  }
+
+  .instructions_list  li {
+    width: 98%;
+  }
+
+  .instructions_list > li :last-child >:last-child {
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    width: 90%;
+  }
+  .button {
+    display: none;
+  }
+
+
+}

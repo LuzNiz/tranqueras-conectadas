@@ -1,0 +1,18 @@
+{
+  "name": "tranqueras-conectadas",
+  "version": "1.0.0",
+  "description": "Mapa interactivo para visualización y ruteo de Patentes de Tranqueras, para la optimización de Servicios de emergencias",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luz Niz",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.7.0",
+    "leaflet-control-mini-map": "^0.4.0",
+    "leaflet-wfst": "^2.0.1-beta.27",
+    "leaflet.locatecontrol": "^0.79.0",
+    "proj4": "^2.9.0"
+  }
+}
