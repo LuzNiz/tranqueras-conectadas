@@ -7,7 +7,7 @@
 Este proyecto se enfoca en la geolocalización y el enrutamiento de tranqueras en el partido de Las Flores, haciendo uso de servicios WFS (Web Feature Service).
 
 <details>
-<summary>English</summary>
+<summary>🇺🇸 English</summary>
    
 This is a project that focuses on geolocation and routing of gates (tranqueras) in Las Flores, using WFS (Web Feature Service) services.
 
@@ -25,7 +25,12 @@ Questo progetto si concentra sulla geolocalizzazione e sull'instradamento delle 
 ## Objetivos
 
 El objetivo principal de este proyecto es brindar un sistema de geolocalización y ruteo de tranqueras para el partido de Las Flores. Fue desarrollado en colaboración con la Municipalidad de Las Flores, como parte del Programa Tranqueras Conectadas, una iniciativa ejecutada por la Dirección de [nombre] y la Secretaría de Modernización. El proyecto tiene como propósito mejorar los servicios de emergencia, como la Policía, Bomberos y servicios médicos de urgencia, al resolver los desafíos asociados con la localización de campos en situaciones de emergencia.
+<details>
+<summary>🇺🇸 English</summary>
+   
+The main objective of this project is to provide a geolocation and routing system for "tranqueras" (gates) in the Las Flores region. It was developed in collaboration with the Municipality of Las Flores, as part of the Connected Tranqueras Program, an initiative executed by the [name] Directorate and the Ministry of Modernization. The project aims to enhance emergency services such as the Police, Firefighters, and medical emergency services by addressing the challenges associated with field location in emergency situations.
 
+</details>
 <details>
 <summary>🇮🇹 Italiano</summary>
  
@@ -43,7 +48,17 @@ L'obiettivo principale di questo progetto è fornire un sistema di geolocalizzaz
   - **Navegación GPS**: Proporciona navegación desde la ubicación actual hasta el punto de tranquera seleccionado.
   - **Búsqueda por Número de Tranquera**: Permite buscar tranqueras específicas por su número y referencia.
   - **Capas Base**: Incluye capas base de OpenStreetMap, Google y Google Satellite para una mejor visualización del mapa.
+<details>
+<summary>🇺🇸 English</summary>
+   
+The project offers the following services:
 
+   - **Geolocation Layers**: Allows visualization of relevant geographical layers.
+   - **GPS Navigation**: Provides navigation from the current location to the selected "tranquera" point.
+   - **Gate Number Search**: Enables searching for specific "tranqueras" by their number and reference.
+   - **Base Layers**: Includes base layers from OpenStreetMap, Google, and Google Satellite for improved map visualization.
+
+</details>
  <details>
 <summary>🇮🇹 Italiano</summary>
  
