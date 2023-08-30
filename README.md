@@ -20,6 +20,8 @@ Questo progetto si concentra sulla geolocalizzazione e sull'instradamento delle 
 
 </details>
 
+![913shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/234d8456-67d0-4072-8826-d20e643483ee)
+
 ## Objetivos
 
 El objetivo principal de este proyecto es brindar un sistema de geolocalización y ruteo de tranqueras para el partido de Las Flores. Fue desarrollado en colaboración con la Municipalidad de Las Flores, como parte del Programa Tranqueras Conectadas, una iniciativa ejecutada por la Dirección de [nombre] y la Secretaría de Modernización. El proyecto tiene como propósito mejorar los servicios de emergencia, como la Policía, Bomberos y servicios médicos de urgencia, al resolver los desafíos asociados con la localización de campos en situaciones de emergencia.
@@ -31,7 +33,7 @@ L'obiettivo principale di questo progetto è fornire un sistema di geolocalizzaz
 
 </details>
 
-![145shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/8d399713-0cb9-425f-9108-0bd7b1f6e118)
+![401shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/b38a211c-4602-403b-bae6-94a206182149)
 
 ## Servicios
 
@@ -53,4 +55,6 @@ Il progetto offre i seguenti servizi:
  - **Strati di Base**: Include strati di base da OpenStreetMap, Google e Google Satellite per una migliore visualizzazione della mappa.
 
 </details>
-![913shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/07a14745-9779-493e-9267-7a061c3a53ab)
+
+![145shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/f63484d5-1b71-4a6e-a7f8-d60975ccf3e7)
+
