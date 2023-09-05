@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../styles/css/index.css"/>
+    <link rel="stylesheet" href="./notification-form.css"/>
+    <title>Notificar un problema</title>
+</head>
+<body>
+    <header class="header-navigator">
+        <a href="https://lasflores.gob.ar/" target="_blank">
+            <img src="../../../../../images/Logo-Modernizacion-Blanco.png" alt="logo-municipal">
+        </a>
+    </header>
+    <main>
+        <h2>Notificar un problema</h2>
+        <form class="form">
+            <div class="form_group">
+                <input id="name-lastname" class="form_input" placeholder="">
+                <label for="name-lastname" class="form_label">Nombre y Apellido</label>
+            </div>
+            <div class="form_group">
+                <input id="phone-number" class="form_input" placeholder="">
+                <label for="phone-number" class="form_label">Número de contacto</label>
+            </div>
+            <label for="dependencia">Dependencia</label>
+            <select id="dependencia">
+                <option value="all"></option>
+                <option value="policia">Policía</option>
+                <option value="bomberos">Bomberos</option>
+                <option value="emergenciasMedicas">Emergencias Medicas</option>
+            </select>
+            <label for="problem-container">Especifique el problema</label>
+            <textarea></textarea>
+        </form>
+        <button type="reset" class="button">Cancelar</button>
+        <button type="submit" class="button">Enviar</button>
+    </main>
+</body>
+</html>

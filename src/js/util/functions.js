@@ -1,42 +1,29 @@
-import { map } from "../main.js";
+import { map, mapDiv } from "../main.js";
 import { app } from "../app.js";
-import { IS_DEVELOPMENT } from "../test/variables.js";
+import { USER_STATES, RESPONSIVE_DISPLAYS, SIGN_IN_STATUS } from "./dictionary.js";
 
 function openHTMLNavigator(coords) {
-    if(app.profile === 'logged'){
+    if (app.profile === USER_STATES.IS_LOGGED) {
         const coordenadas = coords.toString().split(', ');
-    
+
         const latitud = parseFloat(coordenadas[0]);
         const longitud = parseFloat(coordenadas[1]);
-    
+
         const url = `src/js/map/components/routing/navigator.html?longitud=${longitud}&latitud=${latitud}`;
         window.location.replace(url);
-    }else {
-        const mapDiv = document.getElementById('map');
+    } else {
         const popupMessage = createPopupMessage("Debe iniciar sesión para acceder a esta función");
-        const popupContainer = document.createElement('div');
-        popupContainer.className = 'popup-container';
-        popupContainer.appendChild(popupMessage);
-        
-        mapDiv.parentElement.appendChild(popupContainer);
+        mapDiv.insertAdjacentElement('afterEnd', popupMessage);
     }
 };
 
 function createPopUp(feature, layer) {
-    // layer.on({
-    //     mouseout: function (e) {
-    //         layer.resetStyle(e.target);
-    //     },
-    //     mouseover: highlightFeature,
-    // });
-
-
     let popupContent = '<div style="margin: 0.5em; font-size: 1.5em; font-weight: bold">'
         + (feature.properties['name'] !== '' ? feature.properties['name'] : '') + '</div>';
 
     popupContent += '<table>';
     for (let prop in feature.properties) {
-        var skippedKeys = ["name", "geo_planil", "contacto", "telefono"];
+        var skippedKeys = ["name", "geo_planil"];
         var skippedKeysProfileDefault = ["contacto", "telefono"]
         if (feature.properties.hasOwnProperty(prop) &&
             !skippedKeys.includes(prop)) {
@@ -45,13 +32,11 @@ function createPopUp(feature, layer) {
                 popupContent += '<td><strong>' + prop + '</strong></td>';
                 popupContent += '<td>' + (feature.properties[prop] !== null ? feature.properties[prop] : '') + '</td>';
                 popupContent += '</tr>';
-                if (IS_DEVELOPMENT) console.log('PERFIL DEFAULT');
             } else {
                 popupContent += '<tr>';
                 popupContent += '<td><strong>' + prop + '</strong></td>';
                 popupContent += '<td>' + (feature.properties[prop] !== null ? feature.properties[prop] : '') + '</td>';
                 popupContent += '</tr>';
-                if (IS_DEVELOPMENT) console.log('PERFIL LOGGED');
             }
         }
     }
@@ -76,19 +61,19 @@ function insertHeader() {
     const headerContent = `
         <header>
             <div>
-            ${window.innerWidth > 768 ?
-                `<a href="https://lasflores.gob.ar/" target="_blank">
-                    <img src="./images/Logo-Modernizacion-Blanco.png" alt="logo-municipal">
-                </a>
-                <h4>Tranqueras Conectadas</h4>` :
-                `<div id="toggle-menu">
-                    <img src="./images/hamburger_menu.png" style= "width: 35px;  height: 35px">
-                </div>
-                <a href="https://lasflores.gob.ar/" target="_blank">
-                <img src="./images/logo-municipal-flor.svg" style= "width: 40px;  height: 40px"/>
-                </a>
-                `
-            }
+                ${window.innerWidth > RESPONSIVE_DISPLAYS.MOBILE ?
+                    `<a href="https://lasflores.gob.ar/" target="_blank">
+                        <img src="./images/Logo-Modernizacion-Blanco.png" alt="logo-municipal">
+                    </a>
+                    <h4>Tranqueras Conectadas</h4>` 
+                    :
+                    `<div id="toggle-menu">
+                        <img src="./images/hamburger_menu.png" style= "width: 35px;  height: 35px">
+                    </div>
+                    <a href="https://lasflores.gob.ar/" target="_blank">
+                        <img src="./images/logo-municipal-flor.svg" style= "width: 40px;  height: 40px"/>
+                    </a>`
+                }
             </div>
             <div class="wrapper">
                 <div class="search-input">
@@ -96,30 +81,39 @@ function insertHeader() {
                     <div class="autocom-box hidden"></div>
                 </div>
             </div>
-                ${window.innerWidth > 768 ?
-                `
+                ${window.innerWidth > RESPONSIVE_DISPLAYS.MOBILE ?
+            `
                 <div>
-                    <button class="button"> Ingresar </button>
+                    ${app.profile === USER_STATES.IS_NOT_LOGGED ?
+                        `<button id="signInButton" type="submit" class="button">${SIGN_IN_STATUS.SIGN_IN}</button>`
+                        :
+                        `<button id="signInButton" type="submit" class="button">${SIGN_IN_STATUS.SIGN_UP}</button>`
+                    }
                     <a class="help-button" href="./src/js/map/components/help/help.html">
                         <img src="./images/icon-help.png" alt="icon-help">
                     </a>
                 </div>` : ''
-                }
+        }
         </header>`
     return headerContent;
 }
 
 function menuToggle() {
     let menuToggle;
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= RESPONSIVE_DISPLAYS.MOBILE) {
         menuToggle = `
-        <div id="menuToggleContainer" class='menu-toggle hidden'>
+        <div id="menuToggleContainer" class='menu-toggle hidden box-shadow'>
             <h3>Tranqueras Conectadas </h3>
             <ul>
-                <li><a href="">Iniciar Sesion</a></li>
+                ${app.profile === USER_STATES.IS_NOT_LOGGED ?
+                    `<li><a id="signInButton" href="">${SIGN_IN_STATUS.SIGN_IN}</a></li>`
+                    :
+                    `<li><a id="signInButton" href="">${SIGN_IN_STATUS.SIGN_UP}</a></li>`
+                }
                 <li><a href="./src/js/map/components/help/help.html">Ayuda</a></li>
             </ul>
             <footer>
+                <a href="./src/js/map/components/notification-problem/notification-form.html">Notificar problema</a>
                 <p>© Secretaría de Modernizacion || Municipalidad de Las Flores </p>
             </footer>
         </div>
@@ -128,13 +122,15 @@ function menuToggle() {
     }
 }
 
-function createPopupMessage(message){
+function createPopupMessage(message) {
     const messageContainer = document.createElement('div');
     messageContainer.classList.add('message-container');
+    messageContainer.classList.add('box-shadow');
     messageContainer.innerHTML = `
+        <button>X</button>
         <p>${message}</p>
     `
     return messageContainer;
-} 
+}
 
 export { openHTMLNavigator, createPopUp, insertHeader, menuToggle, createPopupMessage };

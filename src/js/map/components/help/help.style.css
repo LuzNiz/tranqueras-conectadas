@@ -19,6 +19,7 @@ main> :first-child > h3 {
   font-size: 2em;
   margin: 0.1em;
 }
+
 .instructions_list {
   list-style: none;
   padding: 0%;
@@ -73,7 +74,6 @@ span {
 }
 
 @media (min-width: 1586px) {
-
   header> :first-child>a {
       width: 20%;
   }
@@ -87,9 +87,8 @@ span {
   }
 }
 
-/* Mobile responsive */
+/* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
-
   .instructions_list {
     width: 93%;
     padding: 0.2em;
@@ -99,12 +98,15 @@ span {
     height: 100%;
     width: 90%;
   }
+
   header> :first-child>a{
     width: 40%;
-  } 
+  }
+  
   header> :first-child> :last-child{
     width: 100%;
   } 
+
   main {
     padding: 1em;
   }
@@ -124,9 +126,12 @@ span {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     width: 90%;
   }
+
   .button {
     display: none;
   }
 
-
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }

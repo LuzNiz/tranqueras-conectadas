@@ -55,7 +55,6 @@
     margin-bottom: 0.2em;
     background-color: #fcfafa;
     cursor: pointer;
-
 }
 
 .autocom-box>li:hover{
@@ -92,7 +91,6 @@
 }
 
 @media (min-width: 1586px) {
-
     .search-input>input {
         background-position: 42.5em 0.2em;
         background-repeat: no-repeat;
@@ -111,7 +109,6 @@
 
 /* Mobile responsive */
 @media (max-width: 768px) {
-   
     /* SEARCH BOX */
     .search-input {
         width: 85%;
@@ -132,6 +129,7 @@
         left: 0px;
         border-radius: 0px 10px 10px 0px;
     }
+    
     .autocom-box>li {
         height: 2.3em;
         padding: 0.3em 0.2em 0.3em 0.2em;

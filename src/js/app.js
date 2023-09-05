@@ -1,11 +1,10 @@
 import { Layer } from "./map/components/Layer.js";
 import { insertHeader, menuToggle } from "./util/functions.js";
 import { map } from "./main.js";
-import { IS_DEVELOPMENT } from "./test/variables.js";
-
+import { USER_STATES, MAP_TYPE } from "./util/dictionary.js";
 
 export const app = {
-    profile: 'logged',
+    profile: USER_STATES.IS_NOT_LOGGED,
     baseMap: {},
     profiles: {},
 
@@ -14,13 +13,13 @@ export const app = {
         const menuToggleContent = menuToggle();
         const mapDiv = document.getElementById('map');
         mapDiv.insertAdjacentHTML('beforebegin', headerContent);
-        mapDiv.insertAdjacentHTML('afterEnd', menuToggleContent)
+        mapDiv.insertAdjacentHTML('afterEnd', menuToggleContent);
     },
 
 
     addBaseMap: function (data) {
         data.forEach(mapas => {
-            if (mapas.type === "basemap") {
+            if (mapas.type === MAP_TYPE.BASE_MAP) {
                 mapas.capas.forEach(capa => {
                     let baseLayer = L.tileLayer(capa.host, {
                         attribution: capa.attribution,
@@ -46,8 +45,7 @@ export const app = {
 
     addLayers: (data) => {
         data.forEach(items => {
-            if (items.type != "basemap") {
-                if (IS_DEVELOPMENT) console.log('Este mapa no es base');
+            if (items.type !== MAP_TYPE.BASE_MAP) {
                 let layer = new Layer(
                     items.type,
                     items.peso,
@@ -60,11 +58,10 @@ export const app = {
                     items.host,
                 );
                 layer.layers.forEach(capa => {
-                    if (IS_DEVELOPMENT) console.log(capa);
                     try{
-                        layer.requestLayerWFS(capa)
+                        layer.requestLayerWFS(capa);
                     }catch(error){
-                        throw new Error('Capa no disponible')
+                        throw new Error('Capa no disponible');
                     }
                 });
             }

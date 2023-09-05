@@ -1,5 +1,4 @@
 import { map, markerReferences } from "../../main.js";
-import { IS_DEVELOPMENT } from "../../test/variables.js";
 import { createPopUp } from "../../util/functions.js";
 import { pointProperties } from "../../main.js";
 
@@ -70,7 +69,6 @@ export class Layer {
                     },
                     style: function(feature){
                         if(feature.geometry.type === 'MultiPolygon'){
-                            if(IS_DEVELOPMENT) console.log('Es una capa de multiples poligonos');
                             return {
                                 fillColor: 'transparent',
                                 color: '#949494',
@@ -81,9 +79,6 @@ export class Layer {
                         }
                     },
                     pointToLayer: function(feature, latlng){
-                        // var projectedCoords = L.point(feature.geometry.coordinates[0], feature.geometry.coordinates[1]);
-                        // var latlng = map.options.crs.projection.unproject(projectedCoords);
-                        if(IS_DEVELOPMENT) console.log(feature);
                         if (feature.geometry.type === 'Point') {
                             const propertiesKey = JSON.stringify(feature.properties);
                             pointProperties[propertiesKey] = feature.properties;

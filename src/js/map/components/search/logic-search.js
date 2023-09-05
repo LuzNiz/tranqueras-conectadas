@@ -1,5 +1,4 @@
-import { pointProperties } from "../../../main.js";
-import { map } from "../../../main.js";
+import { pointProperties, map} from "../../../main.js";
 import { IS_DEVELOPMENT } from "../../../test/variables.js";
 
 const body = document.getElementById('body');
