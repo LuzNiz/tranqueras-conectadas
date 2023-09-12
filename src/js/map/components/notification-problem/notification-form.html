@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../../styles/css/index.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./notification-form.css"/>
+    <link rel="stylesheet" href="../../../../styles/css/index.css"/>
+    <link rel="icon" href="../../../../../images/logo-municipal-flor.svg"/>
     <title>Notificar un problema</title>
 </head>
 <body>
@@ -14,28 +18,37 @@
         </a>
     </header>
     <main>
+        <div class=" loading-message hidden">
+            <div class="loader"></div>
+        </div>
         <h2>Notificar un problema</h2>
-        <form class="form">
+        <form class="form" action="https://sheetdb.io/api/v1/7856u3l17m3uk" method="post" id="sheetdb-form">
+            <input type="hidden" name="data[id]">
+            <input type="hidden" name="data[fecha_hora]">
             <div class="form_group">
-                <input id="name-lastname" class="form_input" placeholder="">
+                <input name="data[name-lastname]" class="form_input" placeholder="" required>
                 <label for="name-lastname" class="form_label">Nombre y Apellido</label>
             </div>
             <div class="form_group">
-                <input id="phone-number" class="form_input" placeholder="">
+                <input name="data[phone-number]" type="tel" class="form_input" placeholder="" required>
                 <label for="phone-number" class="form_label">Número de contacto</label>
             </div>
             <label for="dependencia">Dependencia</label>
-            <select id="dependencia">
+            <select name="data[dependencia]" required>
                 <option value="all"></option>
                 <option value="policia">Policía</option>
                 <option value="bomberos">Bomberos</option>
                 <option value="emergenciasMedicas">Emergencias Medicas</option>
             </select>
             <label for="problem-container">Especifique el problema</label>
-            <textarea></textarea>
+            <textarea name="data[problem-container]" required></textarea>
+            <div>
+                <button type="reset" class="button">Cancelar</button>
+                <button type="submit" class="button">Enviar</button>
+            </div>
         </form>
-        <button type="reset" class="button">Cancelar</button>
-        <button type="submit" class="button">Enviar</button>
     </main>
+    <script type="module" src="./notification-form.js"></script>
+
 </body>
 </html>

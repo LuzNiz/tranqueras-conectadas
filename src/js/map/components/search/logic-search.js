@@ -1,5 +1,6 @@
 import { pointProperties, map} from "../../../main.js";
 import { IS_DEVELOPMENT } from "../../../test/variables.js";
+import { MESSAGES_TYPES } from "../../../util/dictionary.js";
 
 const body = document.getElementById('body');
 const searchWrapper = document.querySelector('.search-input');
@@ -53,9 +54,9 @@ inputBox.addEventListener("input", (e) => {
             });
         }else{
             emptyArrayHTML = [`<div class="res-not-found">
-            <p>Tranquera no encontrada</p>
+            <p>${MESSAGES_TYPES.TRANQUERA_NOT_FOUND}</p>
             <img src="../../../../images/not-found.svg"/>
-            <p>Por favor, vuelva a ingresar el número de tranquera</p>
+            <p>${MESSAGES_TYPES.ENTER_AGAIN_TRANQUERA}</p>
             </div>`];
         }
     } else {

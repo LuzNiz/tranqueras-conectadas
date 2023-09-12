@@ -1,25 +1,35 @@
-header >:first-child{
+header>:first-child>img{
     width: 30%;
 }
 
-header>:first-child>img{
-    width: 90%;
+*::-webkit-scrollbar {
+    display: none;
 }
 
 main {
     padding: 1.5em;
+    height: 90%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    overflow-y: scroll;
 }
 
 main > h2 {
     width: 100%;
+    height: 5%;
+    margin: 0.3em;
 }
 
+.form_group label {
+    width: max-content;
+    color: #061225;
+    margin: 0;
+}
 
 label {
-    color: #061225;
+    width: max-content;
+    margin: 0.5em 0.3em;
 }
 
 input:focus-visible {
@@ -27,38 +37,48 @@ input:focus-visible {
     border-bottom: 2px solid #061225;
 }
 
-select {
+#sheetdb-form > select {
     border: none;
+    background-color: #e4eff0;
     width: 100%;
-    height: 3em;
+    height: 3.5em;
     padding: 0.5em;
-    border-radius: 10px;
-    margin: 0.3em;
+    border-radius: 5px;
+    margin: 1.5em 0.3em;
 }
 
 textarea {
     width: 100%;
-    margin: 0.9em;
-    height: 200px;
+    margin: 0.3em;
+    height: 30%;
+    padding: 1em;
+    background-color: #e4eff0;
     overflow-y: scroll;
+    border: #061225;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: none;
 }
 
 .form {
-    width: 100%;
-    height: 80%;
+    width: 70%;
+    height: 90%;
     padding: 0.5em;
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
+    overflow-y: scroll;
 }
-  
+
 .form_group {
     position: relative;
-    width: 100%;
-    height: 30%;
-    padding: 0.9em 0.1em;
-  }
+    width: 45%;
+    height: 5%;
+    padding: 0.5em 0.1em;
+    margin: 1em 2.3em 1.5em 0.3em;
+}
 
-  .form_input{
+.form_input{
     width: 100%;
     height: 2.5em;
     border: none;
@@ -67,32 +87,127 @@ textarea {
     font-size: 1rem;
     color: black;
     border-bottom: 1px solid #061225;
-  }
-  
-  .form_label {
+}
+
+.form_label {
     color: #8E8585;
     cursor: pointer;
     position: absolute;
     top: 12px;
-    left: 10px;
     transform: translateY(10px);
     transition: transform .5s, color .3s;
-  }
-  
-  .form_input:focus + .form_label,
-  .form_input:not(:placeholder-shown) + .form_label {
+}
+
+.form_input:focus + .form_label,
+.form_input:not(:placeholder-shown) + .form_label {
     transform: translateY(-13px) translateX(-0vw) scale(.9);
     transform-origin: top left;
     color: #061225;
-    background-color: white;
-  }
+}
 
-  .button {
-    width: 70%;
-    height: 40em;
-    border-radius: 10px;
+.button {
     margin: 0.5em;
-    height: auto;
-    justify-self: center;
-    text-decoration: none;
-  }
+}
+
+.messageContainer {
+    position: absolute;
+    top: 40%;
+    left: 18%;
+    opacity: 0.9;
+    width: 60%;
+    height: max-content;
+    padding: 0.5em;
+    border-radius: 10px;
+    display: flex;
+    text-align: center;
+}
+
+.loading-message {
+    background-color: #ffffff;
+    opacity: 0.8;
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+#sheetdb-form > :nth-child(9) {
+    width: 100%;
+    display: flex;
+}
+
+#sheetdb-form button {
+    height: 3em;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 30px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #25b09b;
+    --_m: 
+    conic-gradient(#0000 10%,#000),
+    linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+
+    header>:first-child>img{
+        width: 90%;
+    }
+
+    main {
+        height: auto;
+    }
+
+    main > h2 {
+        margin: 0.5em;
+    }
+
+    #sheetdb-form > select {
+        width: 100%;
+        margin: 0.3em 0.3em;        
+    }
+
+    label {
+        width: 60%;
+        margin: 0.5em 0.3em;
+    }
+    
+    textarea {
+        margin: 1em 0.3em;
+        height: 165px;
+    }
+    
+    .form {
+        width: 100%;
+        height: 80%;
+    }
+
+    .form_group {
+        width: 100%;
+        height: 30%;
+        padding: 0.9em 0.1em;
+        margin: 0.5em 0em;
+    }
+    
+    .messageContainer {
+        top: 40%;
+        left: 4em;
+        width: 60%;
+    }
+}

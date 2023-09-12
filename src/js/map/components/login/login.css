@@ -1,0 +1,41 @@
+.modal {
+    top: 100px;
+    width: 25%;
+    height: max-content;
+    z-index: 2000;
+    background-color: white;
+    left: 35%;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.modal h1,
+.modal h6 {
+    margin: 0.8em 0em;
+}
+
+.modal input {
+    width: 80%;
+    height: 3em;
+    margin-bottom: 0.8em;
+    border: none;
+    border-bottom: 1px solid #061225;
+}
+
+.modal input:focus-visible{
+    outline: none;
+    border-bottom: 2px solid #061225;
+}
+
+@media (max-width: 768px) {
+    .modal {
+    top: 140px;
+    width: 85%;
+    left: 3%;
+    }
+
+    .button {
+        height: 3em;
+    }
+}

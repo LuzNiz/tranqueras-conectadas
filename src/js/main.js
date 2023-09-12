@@ -1,7 +1,7 @@
 import { app } from "./app.js";
 import { RESPONSIVE_DISPLAYS , SIGN_IN_STATUS } from "./util/dictionary.js";
 import { IS_DEVELOPMENT } from "./test/variables.js";
-import { createPopupMessage, openHTMLNavigator } from "./util/functions.js";
+import { openHTMLNavigator } from "./util/functions.js";
 
 export let pointProperties = [];
 export const markerReferences = {};
@@ -47,8 +47,8 @@ $.getJSON("data/data.json", function (data) {
 
 const menuToggle = document.getElementById('toggle-menu');
 const menuToggleContainer = document.getElementById('menuToggleContainer');
-
-
+const toggleOptions = document.querySelector('header').lastElementChild.lastElementChild;
+const optionsContainer = body.querySelector(".options-toggle")
 if(window.innerWidth <= RESPONSIVE_DISPLAYS.MOBILE){
     menuToggle.addEventListener('click', ()=>{
         if(menuToggleContainer.classList.contains('hidden')){
@@ -59,28 +59,19 @@ if(window.innerWidth <= RESPONSIVE_DISPLAYS.MOBILE){
             menuToggle.innerHTML= '<img id="toggle-menu" src="./images/hamburger_menu.png" style= "width: 35px;  height: 35px">'
         }
     });
+}else{
+    toggleOptions.addEventListener("click", ()=>{
+        if(optionsContainer.classList.contains("hidden")){
+            toggleOptions.innerHTML= '<img id="toggle-menu" src="./images/arrow_top_up_icon.png">'
+            optionsContainer.classList.remove("hidden");
+        }else {
+            toggleOptions.innerHTML= '<img src="./images/down_arrow_icon.png">'
+            optionsContainer.classList.add("hidden");
+        }
+    })
 }
 
-const buttonSingIn = document.getElementById('signInButton');
+
 export const mapDiv = document.getElementById('map');
-
-
-buttonSingIn.addEventListener('click', (e)=>{
-    e.preventDefault();
-    if(e.target.textContent === SIGN_IN_STATUS.SIGN_IN){
-        if(IS_DEVELOPMENT) console.log(e.target.textContent);
-        openHTMLNavigator();
-    }else{
-        console.log("Cerrando sesión...")
-    }
-});
-
-const messagePopUp = body.querySelector(".message-container");
-
-
-// messagePopUp.firstElementChild.addEventListener("click", (e)=>{
-//     if(IS_DEVELOPMENT) console.log(e.target);
-//     messagePopUp.classList.add("hidden");
-// })
 
 

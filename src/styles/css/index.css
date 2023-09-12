@@ -110,13 +110,23 @@ header> :last-child {
     flex-wrap: nowrap;
 }
 
+header> :last-child > :last-child {
+    display: flex;
+    align-items: center;
+}
+
+header> :last-child > :last-child > img {
+    width: 25px;
+    margin-left: 1em;
+}
+
 .button {
     border: none;
     border-radius: var(--border-radius);
     padding: 1em 2em;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
     color: var(--background-color);
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color) !important;
 }
 
 .box-shadow {
@@ -177,15 +187,77 @@ header> :last-child {
 }
 
 .message-container {
-    width: 200px;
+    width: 300px;
     max-height: 400px;
     position: absolute;
     z-index: 3000;
     top: 253px;
-    left: 590px;
+    left: 40%;
     background-color: var(--background-color);
     border-radius: var(--border-radius);
     padding: 1em;
+}
+
+.background-message {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.3;
+    z-index: 2600;
+}
+
+.success {
+    background-color: #b6e69a;
+    border-color: #557841;
+}
+
+.success > :first-child {
+    color: #557841;
+}
+
+.rejected {
+    background-color: #b69297;
+    border-color: #592e34;
+}
+
+.rejected > :first-child {
+    color: #592e34;
+}
+
+button[type="submit"] {
+    background-color: #557841;
+}
+
+button[type="reset"] {
+    background-color: #592e34;
+}
+
+.options-toggle {
+    position: absolute;
+    top: 55px;
+    z-index: 2500;
+    background-color: var(--main-color);
+    opacity: 0.9;
+    border-radius: 0px 0px 10px 10px;
+    right: 0;
+    width: 12em;
+    padding: 1em 1em 1em 1.5em;
+}
+
+.options-toggle > a{
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1em;
+    color: white !important;
+    text-decoration: none;
+    justify-content: flex-start;
+    font-size: 0.9em;
+}
+
+.options-toggle > a:hover{
+    transform: scale(1.05);
 }
 
 @media (min-width: 1586px) {

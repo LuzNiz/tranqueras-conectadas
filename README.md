@@ -72,4 +72,3 @@ Il progetto offre i seguenti servizi:
 </details>
 
 ![145shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/f63484d5-1b71-4a6e-a7f8-d60975ccf3e7)
-

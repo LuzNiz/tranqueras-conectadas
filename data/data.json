@@ -77,7 +77,7 @@
             "seccion": "tranqueras-conectadas",
             "servicio": "WFS",
             "version": "2.0.0",
-            "host": "https://mapas.lasflores.net.ar:8080/geoserver/tranqueras_conectadas/ows"
+            "host": "https://mapas.lasflores.net.ar/geoserver/tranqueras_conectadas/ows"
         }
     ]
 }

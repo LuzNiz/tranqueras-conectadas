@@ -107,6 +107,12 @@
     }
 }
 
+@media (min-width: 1920px) {
+    .search-input>input {
+        background-position: 23.5em 0.2em;
+    }
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
     /* SEARCH BOX */

@@ -1,7 +1,8 @@
-import { Layer } from "./map/components/Layer.js";
-import { insertHeader, menuToggle } from "./util/functions.js";
+import { Layer } from "../models/Layer.js"
+import { insertHeader, menuToggle, addToggleOptions, loadLogin } from "./util/functions.js";
 import { map } from "./main.js";
 import { USER_STATES, MAP_TYPE } from "./util/dictionary.js";
+
 
 export const app = {
     profile: USER_STATES.IS_NOT_LOGGED,
@@ -14,6 +15,8 @@ export const app = {
         const mapDiv = document.getElementById('map');
         mapDiv.insertAdjacentHTML('beforebegin', headerContent);
         mapDiv.insertAdjacentHTML('afterEnd', menuToggleContent);
+        mapDiv.insertAdjacentHTML('afterEnd', addToggleOptions());
+        mapDiv.insertAdjacentHTML('afterEnd', loadLogin());
     },
 
 
@@ -66,5 +69,9 @@ export const app = {
                 });
             }
         })
+    },
+
+    changeProfile: function (profile){
+        this.profile = profile;
     }
 };

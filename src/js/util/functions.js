@@ -1,7 +1,9 @@
 import { map, mapDiv } from "../main.js";
 import { app } from "../app.js";
-import { USER_STATES, RESPONSIVE_DISPLAYS, SIGN_IN_STATUS } from "./dictionary.js";
+import { USER_STATES, RESPONSIVE_DISPLAYS, SIGN_IN_STATUS, OPTIONS_MENU, CLASS_NAME_TYPES, MESSAGES_TYPES } from "./dictionary.js";
+import { Notification } from "../../models/Notifications.js";
 
+let notificationShown = false;
 function openHTMLNavigator(coords) {
     if (app.profile === USER_STATES.IS_LOGGED) {
         const coordenadas = coords.toString().split(', ');
@@ -12,8 +14,11 @@ function openHTMLNavigator(coords) {
         const url = `src/js/map/components/routing/navigator.html?longitud=${longitud}&latitud=${latitud}`;
         window.location.replace(url);
     } else {
-        const popupMessage = createPopupMessage("Debe iniciar sesión para acceder a esta función");
-        mapDiv.insertAdjacentElement('afterEnd', popupMessage);
+        if (!notificationShown) {
+            const popupMessage = new Notification(MESSAGES_TYPES.NOT_ACCESS, CLASS_NAME_TYPES.REJECTED, true);
+            mapDiv.insertAdjacentElement('afterEnd', popupMessage.createNotification());
+            notificationShown = true;
+        }
     }
 };
 
@@ -82,16 +87,16 @@ function insertHeader() {
                 </div>
             </div>
                 ${window.innerWidth > RESPONSIVE_DISPLAYS.MOBILE ?
-            `
+                `
                 <div>
-                    ${app.profile === USER_STATES.IS_NOT_LOGGED ?
-                        `<button id="signInButton" type="submit" class="button">${SIGN_IN_STATUS.SIGN_IN}</button>`
-                        :
-                        `<button id="signInButton" type="submit" class="button">${SIGN_IN_STATUS.SIGN_UP}</button>`
-                    }
-                    <a class="help-button" href="./src/js/map/components/help/help.html">
-                        <img src="./images/icon-help.png" alt="icon-help">
-                    </a>
+                ${app.profile === USER_STATES.IS_NOT_LOGGED ?
+                    `<button id="signInButton" class="button">${SIGN_IN_STATUS.SIGN_IN}</button>`
+                    :
+                    `<button id="signInButton" class="button">${SIGN_IN_STATUS.SIGN_UP}</button>`
+                }
+                    <div id="toggle-options">
+                        <img src="./images/down_arrow_icon.png">
+                    </div>
                 </div>` : ''
         }
         </header>`
@@ -106,14 +111,14 @@ function menuToggle() {
             <h3>Tranqueras Conectadas </h3>
             <ul>
                 ${app.profile === USER_STATES.IS_NOT_LOGGED ?
-                    `<li><a id="signInButton" href="">${SIGN_IN_STATUS.SIGN_IN}</a></li>`
+                    `<li><a id="signInButton">${SIGN_IN_STATUS.SIGN_IN}</a></li>`
                     :
-                    `<li><a id="signInButton" href="">${SIGN_IN_STATUS.SIGN_UP}</a></li>`
+                    `<li><a id="signInButton">${SIGN_IN_STATUS.SIGN_UP}</a></li>`
                 }
-                <li><a href="./src/js/map/components/help/help.html">Ayuda</a></li>
+                <li><a href="./src/js/map/components/help/help.html">${OPTIONS_MENU.HELP_MENU}</a></li>
             </ul>
             <footer>
-                <a href="./src/js/map/components/notification-problem/notification-form.html">Notificar problema</a>
+                <a href="./src/js/map/components/notification-problem/notification-form.html">${OPTIONS_MENU.REPORT_PROBLEM}</a>
                 <p>© Secretaría de Modernizacion || Municipalidad de Las Flores </p>
             </footer>
         </div>
@@ -122,15 +127,56 @@ function menuToggle() {
     }
 }
 
-function createPopupMessage(message) {
-    const messageContainer = document.createElement('div');
-    messageContainer.classList.add('message-container');
-    messageContainer.classList.add('box-shadow');
-    messageContainer.innerHTML = `
-        <button>X</button>
-        <p>${message}</p>
-    `
-    return messageContainer;
+function addToggleOptions(){
+    let containerOptions = `
+        <div class="hidden options-toggle box-shadow">
+            <a class="help-button" href="./src/js/map/components/help/help.html">
+                ${OPTIONS_MENU.HELP_MENU}
+            </a>
+            <a class="help-button" href="./src/js/map/components/notification-problem/notification-form.html">
+                ${OPTIONS_MENU.REPORT_PROBLEM}
+            </a>
+        </div>
+        `
+        return containerOptions;
 }
 
-export { openHTMLNavigator, createPopUp, insertHeader, menuToggle, createPopupMessage };
+function loadLogin(){
+    let modalLogin = `
+        <div id="loginModal" class="modal fade hidden" role="dialog" style="position: absolute;">
+        <div class="modal-dialog" style="position: relative; top: 12%;">
+            <form id="loginForm"  method="POST" action='https://mapas.lasflores.net.ar/geoserver/j_spring_security_check' class="modal-content form-signin" style="display: flex; flex-wrap: wrap; justify-content: center; padding: 3%;">
+                <img class="mb-4" src="./images/logo-municipal-flor.svg" alt="" width="100" height="100">
+                <h1 class="h3 mb-3" style="width: 100%; text-align: center;">Iniciar sesión</h1>
+                <h6>Uso 
+                    <span style="font-weight: bold;">exclusivo</span> para personal municipal</h6>
+                <label for="name" class="sr-only">Nombre de cuenta</label>
+                <input type="text" id="name" class="form-control" placeholder="Nombre de cuenta" required autofocus>
+                <label for="pwd" class="sr-only">Contraseña</label>
+                <input type="password" autocomplete="current-password" id="pwd" class="form-control" placeholder="Contraseña" required>
+                <label for="newPwd" class="sr-only">Nueva contraseña</label>
+                <button type="submit" class="btn btn-lg btn-primary btn-block button" type="button">Ingresar</button>
+                <p style="font-size: 0.75em; margin-top: 2%; text-align: center; ">Para solicitar acceso, por favor, póngase en contacto con la 
+                    <span style="font-weight: bold;">Secretaría de Modernización</span></p>
+                <!-- <button id="resetPwd" class="btn btn-lg btn-primary btn-block" type="button">Modificar contraseña</button> -->
+            </form>
+        </div>
+    </div>
+    `;
+
+    return modalLogin;
+}
+
+
+function addHandleEvents() {
+    document.body.addEventListener('click', (e)=>{
+        const elementTarget = e.target;
+
+        switch(elementTarget.id){
+            case 'toggle-menu':
+
+        }
+    })
+}
+
+export { openHTMLNavigator, createPopUp, insertHeader, menuToggle, addToggleOptions, loadLogin };

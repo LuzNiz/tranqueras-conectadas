@@ -1,4 +1,5 @@
-
+const loginForm = document.getElementById('loginForm');
+console.log(loginForm);
 export const login = {
     res: {},
 
@@ -50,7 +51,7 @@ export const login = {
     _listeners: function () {
         document.getElementById("logoutBtn").addEventListener('click', this.logout); // convert UI to object
         loginForm.submit.addEventListener('click', this.submit);
-        loginForm.resetPwd.addEventListener('click', this.resetPwd);
+        // loginForm.resetPwd.addEventListener('click', this.resetPwd);
     },
 
     load: async function () {
@@ -61,6 +62,7 @@ export const login = {
 
     submit: function (event) {
         event.preventDefault();
+        console.log('cargando funcion _geoserver')
         login._geoserver(loginForm.name.value, loginForm.pwd.value);
     },
 

@@ -1,6 +1,6 @@
-import { map, markerReferences } from "../../main.js";
-import { createPopUp } from "../../util/functions.js";
-import { pointProperties } from "../../main.js";
+import { map, markerReferences } from "../js/main.js";
+import { createPopUp } from "../js/util/functions.js";
+import { pointProperties } from "../js/main.js";
 
 export class Layer {
     type;
