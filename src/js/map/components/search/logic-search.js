@@ -87,7 +87,7 @@ suggBox.addEventListener("click", (e) => {
                 duration: 2
             }).on('moveend', ()=>{
                 var highlightCircle = L.circleMarker([coords.latitude, coords.longitude], {
-                    radius: 45,
+                    radius: 25,
                     color: 'transparent',
                     fillColor: '#72A0C1',
                     fillOpacity: 0.5
@@ -95,7 +95,7 @@ suggBox.addEventListener("click", (e) => {
                 
                 setTimeout(function() {
                     map.removeLayer(highlightCircle);
-                }, 5000); 
+                }, 3000); 
             });
 
 

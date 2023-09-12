@@ -9,6 +9,16 @@ export class Notification {
         this.haveButton = haveButton
     }
 
+    addEvenListener() {
+        document.body.addEventListener("click", (e)=>{
+        const element = e.target;
+        console.log(notificationContainer);
+        if(element.id === 'close-btn'){
+            const notificationContainer = body.querySelector('.background-message');
+            document.body.removeChild(notificationContainer);
+        }
+        })
+    }
     createBackground() {
         const background = document.createElement('div');
         background.classList.add('background-message');
@@ -23,7 +33,7 @@ export class Notification {
         messageContainer.classList.add(this.className);
         if(this.haveButton){
             messageContainer.innerHTML = `
-            <p>x</p>
+            <p id="close-btn">x</p>
         `
         }
         messageContainer.innerHTML += `
@@ -34,8 +44,9 @@ export class Notification {
 
     createNotification() {
         const notification = document.createElement('div');
-        notification.appendChild(this.createBackground())
-        notification.appendChild(this.createMessage())
+        notification.appendChild(this.createBackground());
+        notification.appendChild(this.createMessage());
+        this.addEvenListener();
         return notification;
     }
 }

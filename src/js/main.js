@@ -60,7 +60,7 @@ if(window.innerWidth <= RESPONSIVE_DISPLAYS.MOBILE){
         }
     });
 }else{
-    toggleOptions.addEventListener("click", ()=>{
+    toggleOptions.addEventListener("click", (e)=>{
         if(optionsContainer.classList.contains("hidden")){
             toggleOptions.innerHTML= '<img id="toggle-menu" src="./images/arrow_top_up_icon.png">'
             optionsContainer.classList.remove("hidden");
@@ -70,8 +70,8 @@ if(window.innerWidth <= RESPONSIVE_DISPLAYS.MOBILE){
         }
     })
 }
-
-
 export const mapDiv = document.getElementById('map');
+
+
 
 
