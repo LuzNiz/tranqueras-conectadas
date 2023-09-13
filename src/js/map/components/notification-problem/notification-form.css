@@ -9,6 +9,7 @@ header>:first-child>img{
 main {
     padding: 1.5em;
     height: 90%;
+    margin-top: 3.5em;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -122,19 +123,7 @@ textarea {
     text-align: center;
 }
 
-.loading-message {
-    background-color: #ffffff;
-    opacity: 0.8;
-    position: fixed;
-    display: flex;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-}
+
 
 #sheetdb-form > :nth-child(9) {
     width: 100%;
@@ -145,23 +134,6 @@ textarea {
     height: 3em;
 }
 
-/* HTML: <div class="loader"></div> */
-.loader {
-    width: 30px;
-    padding: 8px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: #25b09b;
-    --_m: 
-    conic-gradient(#0000 10%,#000),
-    linear-gradient(#000 0 0) content-box;
-    -webkit-mask: var(--_m);
-            mask: var(--_m);
-    -webkit-mask-composite: source-out;
-            mask-composite: subtract;
-    animation: l3 1s infinite linear;
-}
-@keyframes l3 {to{transform: rotate(1turn)}}
 
 /* Mobile responsive */
 @media (max-width: 768px) {

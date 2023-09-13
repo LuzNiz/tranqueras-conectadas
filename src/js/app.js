@@ -1,13 +1,13 @@
 import { Layer } from "../models/Layer.js"
 import { insertHeader, menuToggle, addToggleOptions, loadLogin } from "./util/functions.js";
-import { map } from "./main.js";
+import { body, createMap, map, mapDiv, menuToggleContainer, showToggleMenu } from "./main.js";
 import { USER_STATES, MAP_TYPE } from "./util/dictionary.js";
-
 
 export const app = {
     profile: USER_STATES.IS_NOT_LOGGED,
     baseMap: {},
     profiles: {},
+    layers: {},
 
     _load: function () {
         const headerContent = insertHeader();
@@ -17,8 +17,15 @@ export const app = {
         mapDiv.insertAdjacentHTML('afterEnd', menuToggleContent);
         mapDiv.insertAdjacentHTML('afterEnd', addToggleOptions());
         mapDiv.insertAdjacentHTML('afterEnd', loadLogin());
-    },
+        showToggleMenu();
 
+        $.getJSON("data/data.json", function (data) {
+            const maps = data.items;
+            app.addBaseMap(maps);
+            L.control.layers(app.baseMap).addTo(map);
+            app.addLayers(maps)
+        })
+    },
 
     addBaseMap: function (data) {
         data.forEach(mapas => {
@@ -71,7 +78,25 @@ export const app = {
         })
     },
 
+    reset: function () {
+        for (const key in this.layers) {
+            if (this.layers.hasOwnProperty(key)) {
+                const layer = this.layers[key];
+                map.removeLayer(layer);
+            }
+        }
+        this.layers = {};
+        this.baseMap = {};
+    },
+    
+
     changeProfile: function (profile){
         this.profile = profile;
+        body.removeChild(mapDiv.parentNode.firstElementChild)
+        body.removeChild()
+        this.reset();
+        this._load();
     }
 };
+
+

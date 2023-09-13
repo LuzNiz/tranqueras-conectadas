@@ -3,7 +3,6 @@ import { app } from "../app.js";
 import { USER_STATES, RESPONSIVE_DISPLAYS, SIGN_IN_STATUS, OPTIONS_MENU, CLASS_NAME_TYPES, MESSAGES_TYPES } from "./dictionary.js";
 import { Notification } from "../../models/Notifications.js";
 
-let notificationShown = false;
 function openHTMLNavigator(coords) {
     if (app.profile === USER_STATES.IS_LOGGED) {
         const coordenadas = coords.toString().split(', ');
@@ -14,13 +13,14 @@ function openHTMLNavigator(coords) {
         const url = `src/js/map/components/routing/navigator.html?longitud=${longitud}&latitud=${latitud}`;
         window.location.replace(url);
     } else {
-        if (!notificationShown) {
-            const popupMessage = new Notification(MESSAGES_TYPES.NOT_ACCESS, CLASS_NAME_TYPES.REJECTED, true);
+        const existingNotification = document.getElementById('notification-container');
+        if (!existingNotification) {
+            const popupMessage = new Notification(MESSAGES_TYPES.NOT_ACCESS, CLASS_NAME_TYPES.REJECTED);
             mapDiv.insertAdjacentElement('afterEnd', popupMessage.createNotification());
-            notificationShown = true;
         }
     }
 };
+
 
 function createPopUp(feature, layer) {
     let popupContent = '<div style="margin: 0.5em; font-size: 1.5em; font-weight: bold">'
@@ -29,22 +29,39 @@ function createPopUp(feature, layer) {
     popupContent += '<table>';
     for (let prop in feature.properties) {
         var skippedKeys = ["name", "geo_planil"];
-        var skippedKeysProfileDefault = ["contacto", "telefono"]
-        if (feature.properties.hasOwnProperty(prop) &&
-            !skippedKeys.includes(prop)) {
-            if (app.profile === "default" && !skippedKeysProfileDefault.includes(prop)) {
-                popupContent += '<tr>';
-                popupContent += '<td><strong>' + prop + '</strong></td>';
-                popupContent += '<td>' + (feature.properties[prop] !== null ? feature.properties[prop] : '') + '</td>';
-                popupContent += '</tr>';
-            } else {
-                popupContent += '<tr>';
-                popupContent += '<td><strong>' + prop + '</strong></td>';
-                popupContent += '<td>' + (feature.properties[prop] !== null ? feature.properties[prop] : '') + '</td>';
-                popupContent += '</tr>';
-            }
+        var skippedKeysProfileDefault = ["contacto", "telefono"];
+        if(app.profile === USER_STATES.IS_LOGGED){
+            if (feature.properties.hasOwnProperty(prop) &&
+                !skippedKeys.includes(prop)) {
+                if (app.profile === "default" && !skippedKeysProfileDefault.includes(prop)) {
+                    popupContent += '<tr>';
+                    popupContent += '<td><strong>' + prop + '</strong></td>';
+                    popupContent += '<td>' + (feature.properties[prop] !== null ? feature.properties[prop] : '') + '</td>';
+                    popupContent += '</tr>';
+                } else {
+                    popupContent += '<tr>';
+                    popupContent += '<td><strong>' + prop + '</strong></td>';
+                    popupContent += '<td>' + (feature.properties[prop] !== null ? feature.properties[prop] : '') + '</td>';
+                    popupContent += '</tr>';
+                }
+        }
+        }else{
+            if (feature.properties.hasOwnProperty(prop) &&
+                !skippedKeys.includes(prop) && !skippedKeysProfileDefault.includes(prop)) {
+                if (app.profile === "default" && !skippedKeysProfileDefault.includes(prop)) {
+                    popupContent += '<tr>';
+                    popupContent += '<td><strong>' + prop + '</strong></td>';
+                    popupContent += '<td>' + (feature.properties[prop] !== null ? feature.properties[prop] : '') + '</td>';
+                    popupContent += '</tr>';
+                } else {
+                    popupContent += '<tr>';
+                    popupContent += '<td><strong>' + prop + '</strong></td>';
+                    popupContent += '<td>' + (feature.properties[prop] !== null ? feature.properties[prop] : '') + '</td>';
+                    popupContent += '</tr>';
+                }
         }
     }
+}
     popupContent += '</table>';
     popupContent += `<button id="boton-navigator"; coords="${feature.properties['geo_planil']}" style="display: flex; justify-content: center; align-items: center; border-radius: 100px; margin:1em auto; background-color:#383861; border: none; width:30px; height: 30px; cursor: pointer"> 
     <img src="../../images/navigator_icon.svg" style="width: 18px; height: 18px; display: block; margin: 0 auto;" />
@@ -54,7 +71,6 @@ function createPopUp(feature, layer) {
 
     map.on('popupopen', function (e) {
         let button = document.getElementById('boton-navigator');
-
         button.addEventListener('click', function () {
             const coords = button.getAttribute('coords');
             openHTMLNavigator(coords);
@@ -143,40 +159,50 @@ function addToggleOptions(){
 
 function loadLogin(){
     let modalLogin = `
-        <div id="loginModal" class="modal fade hidden" role="dialog" style="position: absolute;">
-        <div class="modal-dialog" style="position: relative; top: 12%;">
-            <form id="loginForm"  method="POST" action='https://mapas.lasflores.net.ar/geoserver/j_spring_security_check' class="modal-content form-signin" style="display: flex; flex-wrap: wrap; justify-content: center; padding: 3%;">
-                <img class="mb-4" src="./images/logo-municipal-flor.svg" alt="" width="100" height="100">
-                <h1 class="h3 mb-3" style="width: 100%; text-align: center;">Iniciar sesión</h1>
-                <h6>Uso 
-                    <span style="font-weight: bold;">exclusivo</span> para personal municipal</h6>
-                <label for="name" class="sr-only">Nombre de cuenta</label>
-                <input type="text" id="name" class="form-control" placeholder="Nombre de cuenta" required autofocus>
-                <label for="pwd" class="sr-only">Contraseña</label>
-                <input type="password" autocomplete="current-password" id="pwd" class="form-control" placeholder="Contraseña" required>
-                <label for="newPwd" class="sr-only">Nueva contraseña</label>
-                <button type="submit" class="btn btn-lg btn-primary btn-block button" type="button">Ingresar</button>
-                <p style="font-size: 0.75em; margin-top: 2%; text-align: center; ">Para solicitar acceso, por favor, póngase en contacto con la 
-                    <span style="font-weight: bold;">Secretaría de Modernización</span></p>
-                <!-- <button id="resetPwd" class="btn btn-lg btn-primary btn-block" type="button">Modificar contraseña</button> -->
-            </form>
+        <div class="hidden">
+            <div class="background-message">
+            </div>
+            <div id="loginModal" class="modal fade" role="dialog" style="position: absolute;">
+                <div class="modal-dialog" style="position: relative; top: 12%;">
+                    <form id="loginForm"  method="POST" action='https://mapas.lasflores.net.ar/geoserver/j_spring_security_check' class="modal-content form-signin" style="display: flex; flex-wrap: wrap; justify-content: center; padding: 3%;">
+                        <img class="mb-4" src="./images/logo-municipal-flor.svg" alt="" width="100" height="100">
+                        <h1 class="h3 mb-3" style="width: 100%; text-align: center;">Iniciar sesión</h1>
+                        <h6>Uso 
+                            <span style="font-weight: bold;">exclusivo</span> para personal municipal</h6>
+                        <label for="name" class="sr-only">Nombre de cuenta</label>
+                        <input type="text" id="name" class="form-control" placeholder="Nombre de cuenta" required autofocus>
+                        <label for="pwd" class="sr-only">Contraseña</label>
+                        <input type="password" autocomplete="current-password" id="pwd" class="form-control" placeholder="Contraseña" required>
+                        <label for="newPwd" class="sr-only">Nueva contraseña</label>
+                        <button type="submit" class="btn btn-lg btn-primary btn-block button" type="button">Ingresar</button>
+                        <p style="font-size: 0.75em; margin-top: 2%; text-align: center; ">Para solicitar acceso, por favor, póngase en contacto con la 
+                            <span style="font-weight: bold;">Secretaría de Modernización</span></p>
+                        <!-- <button id="resetPwd" class="btn btn-lg btn-primary btn-block" type="button">Modificar contraseña</button> -->
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
     `;
 
     return modalLogin;
 }
 
-
-function addHandleEvents() {
-    document.body.addEventListener('click', (e)=>{
-        const elementTarget = e.target;
-
-        switch(elementTarget.id){
-            case 'toggle-menu':
-
-        }
-    })
+function insertLoad() {
+    const loadContainer = document.createElement('div');
+    loadContainer.classList.add("loading-message");
+    loadContainer.innerHTML = `
+        <div class="loader"></div>
+    `
+    return loadContainer;
 }
 
-export { openHTMLNavigator, createPopUp, insertHeader, menuToggle, addToggleOptions, loadLogin };
+
+export { 
+    openHTMLNavigator, 
+    createPopUp, 
+    insertHeader, 
+    menuToggle, 
+    addToggleOptions, 
+    loadLogin, 
+    insertLoad,
+};

@@ -2,8 +2,9 @@
     top: 100px;
     width: 25%;
     height: max-content;
-    z-index: 2000;
+    z-index: 2700;
     background-color: white;
+    opacity: 1;
     left: 35%;
     padding: 1em;
     border-radius: 10px;

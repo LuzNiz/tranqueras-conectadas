@@ -21,14 +21,14 @@ form.addEventListener("submit", (e) => {
         loadingMessage.classList.add(CLASS_NAME_TYPES.HIDDEN);
         if (response.ok) {
             form.reset();
-            const message = new Notification(MESSAGES_TYPES.MESSAGE_SENT, CLASS_NAME_TYPES.SUCESS, false);
-            form.appendChild(message.createNotification());
+            const message = new Notification(MESSAGES_TYPES.MESSAGE_SENT, CLASS_NAME_TYPES.SUCESS);
+            document.body.appendChild(message.createNotification());
             setTimeout(()=> {
                 window.location.href = "../../../../../index.html"
             }, 1500);
         } else {
-            const message = new Notification(MESSAGES_TYPES.MESSAJE_REJECTED, CLASS_NAME_TYPES.REJECTED, false);
-            form.appendChild(message.createNotification());
+            const message = new Notification(MESSAGES_TYPES.MESSAJE_REJECTED, CLASS_NAME_TYPES.REJECTED);
+            document.body.appendChild(message.createNotification());
             throw new Error('Error en la solicitud.');
         }
     })

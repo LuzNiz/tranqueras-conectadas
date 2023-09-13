@@ -1,11 +1,17 @@
+import { Notification } from "../../../../models/Notifications.js";
+import { app } from "../../../app.js";
+import { mapDiv, body } from "../../../main.js";
+import { USER_STATES, MESSAGES_TYPES, CLASS_NAME_TYPES } from "../../../util/dictionary.js";
+import { insertLoad } from "../../../util/functions.js";
 
+const modalForm = document.getElementById('loginModal');
 export const login = {
     res: {},
 
-    _ajax: function (data, callback) { // In case there isn't jQuery, fetch may be an option
+    _ajax: function (data, callback) {
 
         let xhr = new XMLHttpRequest();
-
+        let res = {};
         xhr.onreadystatechange = function () {
             res = { response: xhr.response, status: xhr.status };
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -19,7 +25,7 @@ export const login = {
         }
 
         xhr.open(data.method, data.url, true);
-        if (data.method == 'PUT' ) { // Adds authorization header for password resetting
+        if (data.method == 'PUT' ) { 
             let credentials = btoa(data.usr + ":" + data.pwd);
             xhr.withCredentials = true;
             xhr.setRequestHeader('Authorization', `Basic ${credentials}`);
@@ -48,25 +54,24 @@ export const login = {
     },
 
     _listeners: function () {
-        document.getElementById("logoutBtn").addEventListener('click', this.logout);
-    // Obtén el formulario por su ID
-    const loginForm = document.getElementById("loginForm");
-    // Asigna la función submit al evento submit del formulario
-    loginForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        console.log('cargando funcion _geoserver');
-        login._geoserver(loginForm.name.value, loginForm.pwd.value);
-    });
+        // document.getElementById("logoutBtn").addEventListener('click', this.logout);
+        // Obtén el formulario por su ID
+        const loginForm = document.getElementById("loginForm");
+        // Asigna la función submit al evento submit del formulario
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            console.log('cargando funcion _geoserver');
+            login._geoserver(loginForm.name.value, loginForm.pwd.value);
+        });
     },
 
     load: async function () {
-        await login._append("src/js/components/login/navbtn.html", "html", "navbar");
-        await login._append("src/js/components/login/form.html", "html", "body");
         login._listeners();
     },
 
     submit: function (event) {
         event.preventDefault();
+        body.appendChild.insertLoad();
         console.log('cargando funcion _geoserver')
         login._geoserver(loginForm.name.value, loginForm.pwd.value);
     },
@@ -125,7 +130,7 @@ export const login = {
 
     _geoserver: function (name, pwd) {
         let usrPwd = `username=${name}&password=${pwd}`,
-            gsUrl = `http://mapas.lasflores.net.ar/geoserver/j_spring_security_check`,
+            gsUrl = `https://mapas.lasflores.net.ar/geoserver/j_spring_security_check`,
             data = {
                 params: usrPwd,
                 url: gsUrl,
@@ -137,22 +142,33 @@ export const login = {
             };
         login._ajax(data, (res) => {
             console.info(`Response status ${res.status}`);
-            if(res.status === 200){
-                app.changeProfile("logged"); // Logged should be a state, not a profile
-                loginForm.name.value = '';
-                loginForm.pwd.value = '';
-                $('#loginModal').modal('hide');
-                document.getElementById("loginBtn").classList.add("hidden");
-                document.getElementById("logoutBtn").classList.remove("hidden");
-            }else {
-                console.log('Contraseña incorrreta')
+        if (res.status === 200) {
+            const responseText = res.response;
+            if (responseText.includes('error=true')) {
+                const notification = new Notification(MESSAGES_TYPES.INCORRECT_LOGIN, CLASS_NAME_TYPES.REJECTED, false )
+                mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
+                setTimeout(()=> {
+                    window.location.href = "../../../../../index.html"
+                }, 1500);
+            } else {
+                console.log('Contraseña CORRECTA');
+                const notification = new Notification(MESSAGES_TYPES.CORRECT_LOGIN, CLASS_NAME_TYPES.SUCESS, false )
+                mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
+                app.changeProfile(USER_STATES.IS_LOGGED);
+                // modalForm.classList.add("hidden")
             }
+            loginForm.name.value = '';
+            loginForm.pwd.value = '';
+        } else {
+            
+        }
+            
         });
     },
 
 
     logout: function () {
-        gsUrl = `http://mapas.lasflores.net.ar:8080/geoserver/j_spring_security_logout`,
+        gsUrl = `http://mapas.lasflores.net.ar/geoserver/j_spring_security_logout`,
             data = {
                 params: "",
                 url: gsUrl,
@@ -164,11 +180,8 @@ export const login = {
             };
         login._ajax(data, (res) => {
             console.info(`Response status ${res.status}`);
-            app.changeProfile("default");
+            console.log('cerrando sesion...');
         });
-
-        document.getElementById("logoutBtn").classList.add("hidden");
-        document.getElementById("loginBtn").classList.remove("hidden");
     }
 
 }

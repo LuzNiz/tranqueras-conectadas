@@ -27,7 +27,9 @@ const MESSAGES_TYPES = Object.freeze({
     MESSAJE_REJECTED: 'No se ha podido enviar el reporte. Intente más tarde',
     TRANQUERA_NOT_FOUND: 'Tranquera no encontrada',
     ENTER_AGAIN_TRANQUERA: 'Por favor, vuelva a ingresar el número de tranquera',
-    NOT_ACCESS: 'Necesita loguearse para poder acceder a esta función'
+    NOT_ACCESS: 'Necesita loguearse para poder acceder a esta función',
+    CORRECT_LOGIN: 'Se ha inicado sesión correctamente',
+    INCORRECT_LOGIN: 'Usuario/ contraseña incorrecta ingrese nuevamente'
 })
 
 const OPTIONS_MENU = Object.freeze({
