@@ -45,7 +45,6 @@ app._load();
 
 export const menuToggleContainer = document.getElementById('menuToggleContainer');
 
-export function showToggleMenu() {
     const menuToggle = document.getElementById('toggle-menu');
     const toggleOptions = document.querySelector('header').lastElementChild.lastElementChild;
     const optionsContainer = body.querySelector(".options-toggle")
@@ -71,7 +70,6 @@ export function showToggleMenu() {
         })
     }
 
-}
 
 login.load();
 export const mapDiv = document.getElementById('map');

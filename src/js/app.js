@@ -1,6 +1,6 @@
 import { Layer } from "../models/Layer.js"
 import { insertHeader, menuToggle, addToggleOptions, loadLogin } from "./util/functions.js";
-import { body, createMap, map, mapDiv, menuToggleContainer, showToggleMenu } from "./main.js";
+import { body, map, mapDiv, } from "./main.js";
 import { USER_STATES, MAP_TYPE } from "./util/dictionary.js";
 
 export const app = {
@@ -17,7 +17,6 @@ export const app = {
         mapDiv.insertAdjacentHTML('afterEnd', menuToggleContent);
         mapDiv.insertAdjacentHTML('afterEnd', addToggleOptions());
         mapDiv.insertAdjacentHTML('afterEnd', loadLogin());
-        showToggleMenu();
 
         $.getJSON("data/data.json", function (data) {
             const maps = data.items;
@@ -93,7 +92,6 @@ export const app = {
     changeProfile: function (profile){
         this.profile = profile;
         body.removeChild(mapDiv.parentNode.firstElementChild)
-        body.removeChild()
         this.reset();
         this._load();
     }
