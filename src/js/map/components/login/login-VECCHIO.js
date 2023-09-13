@@ -1,5 +1,4 @@
-const loginForm = document.getElementById('loginForm');
-console.log(loginForm);
+
 export const login = {
     res: {},
 
@@ -49,9 +48,15 @@ export const login = {
     },
 
     _listeners: function () {
-        document.getElementById("logoutBtn").addEventListener('click', this.logout); // convert UI to object
-        loginForm.submit.addEventListener('click', this.submit);
-        // loginForm.resetPwd.addEventListener('click', this.resetPwd);
+        document.getElementById("logoutBtn").addEventListener('click', this.logout);
+    // Obtén el formulario por su ID
+    const loginForm = document.getElementById("loginForm");
+    // Asigna la función submit al evento submit del formulario
+    loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        console.log('cargando funcion _geoserver');
+        login._geoserver(loginForm.name.value, loginForm.pwd.value);
+    });
     },
 
     load: async function () {
@@ -120,7 +125,7 @@ export const login = {
 
     _geoserver: function (name, pwd) {
         let usrPwd = `username=${name}&password=${pwd}`,
-            gsUrl = `http://mapas.lasflores.net.ar:8080/geoserver/j_spring_security_check`,
+            gsUrl = `http://mapas.lasflores.net.ar/geoserver/j_spring_security_check`,
             data = {
                 params: usrPwd,
                 url: gsUrl,
