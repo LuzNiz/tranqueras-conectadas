@@ -6,18 +6,13 @@ export let pointProperties = [];
 export const markerReferences = {};
 export const body = document.querySelector("body");
 
-export function createMap(){
-    let map = L.map('map', {
+export let map = L.map('map', {
         zoomControl: true,
         maxZoom: 15,
         minZoom: 10,
         dragging: true,
     }).setView([-36.01494877362484, -59.10050714352874], 0);
 
-    return map;
-}
-
-export const map = createMap();
 
 
 var ResetMapControl = L.Control.extend({

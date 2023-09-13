@@ -21,8 +21,6 @@ export const app = {
             this.profile = USER_STATES.IS_LOGGED;
         }
 
-        console.log(`EL PERFIL DE LA APP ES: ${this.profile}`);
-
 
         const mapDiv = document.getElementById('map');
         if(!document.querySelector('header')){
@@ -36,6 +34,22 @@ export const app = {
             mapDiv.insertAdjacentHTML('afterEnd', addToggleOptions());
             mapDiv.insertAdjacentHTML('afterEnd', loadLogin());
             elementsAdded = true;
+        }
+
+        const logoutBtn = document.getElementById('logoutbtn');
+        const buttonSignIn = document.getElementById('signInButton');
+        const modalForm = document.getElementById('loginModal');
+
+        if(logoutBtn){
+            logoutBtn.addEventListener("click", login.logout);
+        }else {
+            document.getElementById('signInButton').removeEventListener("click", login.logout);
+            buttonSignIn.addEventListener("click", () => {
+                document.getElementById('signInButton').removeEventListener("click", login.logout);
+                    if(modalForm.parentNode.classList.contains("hidden")){
+                        modalForm.parentNode.classList.remove("hidden");
+                }
+            });
         }
 
         $.getJSON("data/data.json", function (data) {
@@ -118,19 +132,17 @@ export const app = {
                 map.removeLayer(layerBase);
             }
         }
+
+            // map.removeControl(map._layersControl);
+            // layersControlAdded = false;
+
         this.layers = {};
         this.baseMap = {};
     },
     
-    
 
     changeProfile: function (profile){
         this.profile = profile;
-        if(document.getElementById('logoutbtn')){
-            document.getElementById('logoutbtn').addEventListener("click", login.logout);
-        }else{
-            document.getElementById('signInButton').removeEventListener("click", login.logout);
-        }
         this.reset();
         this._load();
     }

@@ -10,14 +10,12 @@ L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-let currentLat = -36.014389267137986; // Valor inicial para latitud
-let currentLon = -59.10090002591088;  // Valor inicial para longitud
+let currentLat = -36.014389267137986;
+let currentLon = -59.10090002591088;  
 
 function getPosition(position, control) {
     currentLat = position.coords.latitude;
     currentLon = position.coords.longitude;
-    // map.setView([currentLat, currentLon], 28)
-    // Actualizar la ubicación en el control de enrutamiento (si es necesario)
     control.setWaypoints([
         L.latLng(currentLat, currentLon),
         L.latLng(latitud, longitud)
