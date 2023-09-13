@@ -3,8 +3,6 @@ import { app } from "../../../app.js";
 import { mapDiv, body } from "../../../main.js";
 import { USER_STATES, MESSAGES_TYPES, CLASS_NAME_TYPES, SIGN_IN_STATUS } from "../../../util/dictionary.js";
 
-
-const modalForm = document.getElementById('loginModal');
 export const login = {
     res: {},
 
@@ -152,18 +150,17 @@ export const login = {
             } else {
                 const notification = new Notification(MESSAGES_TYPES.CORRECT_LOGIN, CLASS_NAME_TYPES.SUCESS )
                 mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
+                const modalContainer = document.getElementById('loginModal').parentNode;
+                modalContainer.classList.add('hidden');
+
+                const button = document.getElementById('signInButton');
+                button.id = 'logoutbtn';
+                button.textContent = SIGN_IN_STATUS.SIGN_UP;
                 app.changeProfile(USER_STATES.IS_LOGGED);
-                const buttonLogout = document.getElementById('signInButton');
-                buttonLogout.id = 'logoutbtn';
-                buttonLogout.textContent = SIGN_IN_STATUS.SIGN_UP;
-                buttonLogout.addEventListener("click", this.logout);
             }
             loginForm.name.value = '';
             loginForm.pwd.value = '';
-        } else {
-            
-        }
-            
+        }   
         });
     },
 
@@ -180,15 +177,12 @@ export const login = {
                 }
             };
         login._ajax(data, (res) => {
-            console.info(`Response status ${res.status}`);
-            const notification = new Notification(MESSAGES_TYPES.CORRECT_SING_UP, CLASS_NAME_TYPES.SUCESS)
+            const notification = new Notification(MESSAGES_TYPES.CORRECT_SING_UP, CLASS_NAME_TYPES.SUCESS);
             mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
+            const buttonSingIn = document.getElementById('logoutbtn');
+            buttonSingIn.textContent = SIGN_IN_STATUS.SIGN_IN;
+            buttonSingIn.id = 'signInButton';
             app.changeProfile(USER_STATES.IS_NOT_LOGGED);
-            const buttonLogout = document.getElementById('logoutbtn');
-            buttonLogout.textContent = SIGN_IN_STATUS.SIGN_IN;
-            buttonLogout.id = 'signInButton';
-            console.log(buttonLogout);
         });
     }
-
 }

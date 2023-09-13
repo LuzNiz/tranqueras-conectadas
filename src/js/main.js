@@ -45,7 +45,6 @@ resetMapControl.addTo(map);
 app._load();
 
 
-
     const menuToggleContainer = document.getElementById('menuToggleContainer');
     const menuToggle = document.getElementById('toggle-menu');
     const toggleOptions = document.querySelector('header').lastElementChild.lastElementChild;

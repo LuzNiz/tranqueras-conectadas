@@ -1,6 +1,6 @@
 const USER_STATES = Object.freeze({
-    IS_LOGGED : Symbol('El usuario esta logueado'),
-    IS_NOT_LOGGED: Symbol('El usuario no esta logueado')
+    IS_LOGGED : 'logged',
+    IS_NOT_LOGGED: 'default'
 });
 
 const MAP_TYPE = Object.freeze({

@@ -1,6 +1,7 @@
 import { map, markerReferences } from "../js/main.js";
 import { createPopUp } from "../js/util/functions.js";
 import { pointProperties } from "../js/main.js";
+import { app } from "../js/app.js";
 
 export class Layer {
     type;
@@ -61,11 +62,17 @@ export class Layer {
                                     html: feature.properties.cuartel_rom
                                 })
                             });
-                            labelMarker.addTo(map);
+                            
+                            let labelAdded = false;
+
+                            if(!labelAdded){
+                                labelMarker.addTo(map);
+                                labelAdded = true;
+                            }
+                            
                         }else if (feature.geometry.type === 'Point'){
                             createPopUp(feature, layer);
                         }
-                        
                     },
                     style: function(feature){
                         if(feature.geometry.type === 'MultiPolygon'){
@@ -91,6 +98,7 @@ export class Layer {
                     spiderfyDistanceMultiplier: 2});
                     markers.addLayer(layer);
                     map.addLayer(markers);
+                    app.layers[typeName]= markers;
             }
         })
     }

@@ -2,6 +2,7 @@ import { Layer } from "../models/Layer.js"
 import { insertHeader, menuToggle, addToggleOptions, loadLogin } from "./util/functions.js";
 import { body, map, mapDiv} from "./main.js";
 import { USER_STATES, MAP_TYPE } from "./util/dictionary.js";
+import { login } from "./map/components/login/login-logic.js";
 
 let layersControlAdded = false;
 let miniMapAdded = false;
@@ -95,13 +96,13 @@ export const app = {
     },
 
     reset: function () {
+        console.log(this.layers);
         for (const key in this.layers) {
             if (this.layers.hasOwnProperty(key)) {
                 const layer = this.layers[key];
                 map.removeLayer(layer);
             }
         }
-
         for (const key in this.baseMap) {
             if (this.baseMap.hasOwnProperty(key)) {
                 const layerBase = this.baseMap[key];
@@ -116,9 +117,13 @@ export const app = {
 
     changeProfile: function (profile){
         this.profile = profile;
-        // body.removeChild(mapDiv.parentNode.firstElementChild)
+        if(document.getElementById('logoutbtn')){
+            document.getElementById('logoutbtn').addEventListener("click", login.logout);
+        }else{
+            document.getElementById('signInButton').removeEventListener("click", login.logout);
+        }
         this.reset();
         this._load();
     }
-};
+}
 

@@ -70,6 +70,7 @@
             "class": "",
             "layers": [
                 "cuarteles",
+                "tranqueras_cpr_DEMO",
                 "tranqueras_patentes_colocadas"
                 
             ],
