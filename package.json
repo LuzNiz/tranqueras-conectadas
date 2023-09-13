@@ -9,12 +9,10 @@
   "author": "Luz Niz",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
     "googleapis": "^126.0.1",
     "jquery": "^3.7.0",
     "leaflet-control-mini-map": "^0.4.0",
     "leaflet-wfst": "^2.0.1-beta.27",
-    "leaflet.locatecontrol": "^0.79.0",
-    "proj4": "^2.9.0"
+    "leaflet.locatecontrol": "^0.79.0"
   }
 }
