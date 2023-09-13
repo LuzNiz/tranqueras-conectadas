@@ -29,7 +29,8 @@ const MESSAGES_TYPES = Object.freeze({
     ENTER_AGAIN_TRANQUERA: 'Por favor, vuelva a ingresar el número de tranquera',
     NOT_ACCESS: 'Necesita loguearse para poder acceder a esta función',
     CORRECT_LOGIN: 'Se ha inicado sesión correctamente',
-    INCORRECT_LOGIN: 'Usuario/ contraseña incorrecta ingrese nuevamente'
+    INCORRECT_LOGIN: 'Usuario/ contraseña incorrecta ingrese nuevamente',
+    CORRECT_SING_UP: 'Se ha cerrado sesión correctamente'
 })
 
 const OPTIONS_MENU = Object.freeze({

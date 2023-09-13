@@ -105,11 +105,7 @@ function insertHeader() {
                 ${window.innerWidth > RESPONSIVE_DISPLAYS.MOBILE ?
                 `
                 <div>
-                ${app.profile === USER_STATES.IS_NOT_LOGGED ?
-                    `<button id="signInButton" class="button">${SIGN_IN_STATUS.SIGN_IN}</button>`
-                    :
-                    `<button id="signInButton" class="button">${SIGN_IN_STATUS.SIGN_UP}</button>`
-                }
+                    <button id="signInButton" class="button">${SIGN_IN_STATUS.SIGN_IN}</button>
                     <div id="toggle-options">
                         <img src="./images/down_arrow_icon.png">
                     </div>
@@ -126,11 +122,7 @@ function menuToggle() {
         <div id="menuToggleContainer" class='menu-toggle hidden box-shadow'>
             <h3>Tranqueras Conectadas </h3>
             <ul>
-                ${app.profile === USER_STATES.IS_NOT_LOGGED ?
-                    `<li><a id="signInButton">${SIGN_IN_STATUS.SIGN_IN}</a></li>`
-                    :
-                    `<li><a id="signInButton">${SIGN_IN_STATUS.SIGN_UP}</a></li>`
-                }
+                <li><a id="signInButton">${SIGN_IN_STATUS.SIGN_IN}</a></li>
                 <li><a href="./src/js/map/components/help/help.html">${OPTIONS_MENU.HELP_MENU}</a></li>
             </ul>
             <footer>
@@ -195,7 +187,6 @@ function insertLoad() {
     `
     return loadContainer;
 }
-
 
 export { 
     openHTMLNavigator, 

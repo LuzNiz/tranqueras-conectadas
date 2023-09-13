@@ -20,8 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             app.changeProfile(SIGN_IN_STATUS.SIGN_IN)
         }
     });
-    
     body.querySelector('.background-message').addEventListener('click', ()=>{
         modalForm.parentNode.classList.add("hidden");
-    })
+    });
 });

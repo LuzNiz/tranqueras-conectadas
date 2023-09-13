@@ -1,8 +1,8 @@
 import { Notification } from "../../../../models/Notifications.js";
 import { app } from "../../../app.js";
 import { mapDiv, body } from "../../../main.js";
-import { USER_STATES, MESSAGES_TYPES, CLASS_NAME_TYPES } from "../../../util/dictionary.js";
-import { insertLoad } from "../../../util/functions.js";
+import { USER_STATES, MESSAGES_TYPES, CLASS_NAME_TYPES, SIGN_IN_STATUS } from "../../../util/dictionary.js";
+
 
 const modalForm = document.getElementById('loginModal');
 export const login = {
@@ -54,7 +54,6 @@ export const login = {
     },
 
     _listeners: function () {
-        // document.getElementById("logoutBtn").addEventListener('click', this.logout);
         // Obtén el formulario por su ID
         const loginForm = document.getElementById("loginForm");
         // Asigna la función submit al evento submit del formulario
@@ -145,17 +144,19 @@ export const login = {
         if (res.status === 200) {
             const responseText = res.response;
             if (responseText.includes('error=true')) {
-                const notification = new Notification(MESSAGES_TYPES.INCORRECT_LOGIN, CLASS_NAME_TYPES.REJECTED, false )
+                const notification = new Notification(MESSAGES_TYPES.INCORRECT_LOGIN, CLASS_NAME_TYPES.REJECTED )
                 mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
                 setTimeout(()=> {
                     window.location.href = "../../../../../index.html"
                 }, 1500);
             } else {
-                console.log('Contraseña CORRECTA');
-                const notification = new Notification(MESSAGES_TYPES.CORRECT_LOGIN, CLASS_NAME_TYPES.SUCESS, false )
+                const notification = new Notification(MESSAGES_TYPES.CORRECT_LOGIN, CLASS_NAME_TYPES.SUCESS )
                 mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
                 app.changeProfile(USER_STATES.IS_LOGGED);
-                // modalForm.classList.add("hidden")
+                const buttonLogout = document.getElementById('signInButton');
+                buttonLogout.id = 'logoutbtn';
+                buttonLogout.textContent = SIGN_IN_STATUS.SIGN_UP;
+                buttonLogout.addEventListener("click", this.logout);
             }
             loginForm.name.value = '';
             loginForm.pwd.value = '';
@@ -168,7 +169,7 @@ export const login = {
 
 
     logout: function () {
-        gsUrl = `http://mapas.lasflores.net.ar/geoserver/j_spring_security_logout`,
+        let gsUrl = 'https://mapas.lasflores.net.ar/geoserver/j_spring_security_logout',
             data = {
                 params: "",
                 url: gsUrl,
@@ -180,7 +181,13 @@ export const login = {
             };
         login._ajax(data, (res) => {
             console.info(`Response status ${res.status}`);
-            console.log('cerrando sesion...');
+            const notification = new Notification(MESSAGES_TYPES.CORRECT_SING_UP, CLASS_NAME_TYPES.SUCESS)
+            mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
+            app.changeProfile(USER_STATES.IS_NOT_LOGGED);
+            const buttonLogout = document.getElementById('logoutbtn');
+            buttonLogout.textContent = SIGN_IN_STATUS.SIGN_IN;
+            buttonLogout.id = 'signInButton';
+            console.log(buttonLogout);
         });
     }
 

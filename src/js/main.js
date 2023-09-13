@@ -19,6 +19,7 @@ export function createMap(){
 
 export const map = createMap();
 
+
 var ResetMapControl = L.Control.extend({
     options: {
         position: 'topleft',
@@ -43,11 +44,13 @@ var resetMapControl = new ResetMapControl();
 resetMapControl.addTo(map);
 app._load();
 
-export const menuToggleContainer = document.getElementById('menuToggleContainer');
 
+
+    const menuToggleContainer = document.getElementById('menuToggleContainer');
     const menuToggle = document.getElementById('toggle-menu');
     const toggleOptions = document.querySelector('header').lastElementChild.lastElementChild;
-    const optionsContainer = body.querySelector(".options-toggle")
+    const optionsContainer = body.querySelector(".options-toggle");
+    
     if(window.innerWidth <= RESPONSIVE_DISPLAYS.MOBILE){
         menuToggle.addEventListener('click', ()=>{
             if(menuToggleContainer.classList.contains('hidden')){
@@ -69,6 +72,7 @@ export const menuToggleContainer = document.getElementById('menuToggleContainer'
             }
         })
     }
+
 
 
 login.load();

@@ -1,7 +1,11 @@
 import { Layer } from "../models/Layer.js"
 import { insertHeader, menuToggle, addToggleOptions, loadLogin } from "./util/functions.js";
-import { body, map, mapDiv, } from "./main.js";
+import { body, map, mapDiv} from "./main.js";
 import { USER_STATES, MAP_TYPE } from "./util/dictionary.js";
+
+let layersControlAdded = false;
+let miniMapAdded = false;
+let elementsAdded = false;
 
 export const app = {
     profile: USER_STATES.IS_NOT_LOGGED,
@@ -10,20 +14,30 @@ export const app = {
     layers: {},
 
     _load: function () {
-        const headerContent = insertHeader();
-        const menuToggleContent = menuToggle();
         const mapDiv = document.getElementById('map');
-        mapDiv.insertAdjacentHTML('beforebegin', headerContent);
-        mapDiv.insertAdjacentHTML('afterEnd', menuToggleContent);
-        mapDiv.insertAdjacentHTML('afterEnd', addToggleOptions());
-        mapDiv.insertAdjacentHTML('afterEnd', loadLogin());
+        if(!document.querySelector('header')){
+            const headerContent = insertHeader();
+            mapDiv.insertAdjacentHTML('beforebegin', headerContent);
+        }
+        
+        if(!elementsAdded){
+            const menuToggleContent = menuToggle();
+            mapDiv.insertAdjacentHTML('afterEnd', menuToggleContent);
+            mapDiv.insertAdjacentHTML('afterEnd', addToggleOptions());
+            mapDiv.insertAdjacentHTML('afterEnd', loadLogin());
+            elementsAdded = true;
+        }
 
         $.getJSON("data/data.json", function (data) {
             const maps = data.items;
             app.addBaseMap(maps);
-            L.control.layers(app.baseMap).addTo(map);
+            if (!layersControlAdded) {
+                L.control.layers(app.baseMap).addTo(map);
+                layersControlAdded = true;
+            };
             app.addLayers(maps)
-        })
+        });
+
     },
 
     addBaseMap: function (data) {
@@ -39,12 +53,15 @@ export const app = {
                     });
                     if (capa.selected) {
                         baseLayer.addTo(map);
-                        let layerMinimap = L.tileLayer(capa.host);
-                        new L.Control.MiniMap(layerMinimap, {
-                            toggleDisplay: true,
-                            minimized: false,
-                            position: "bottomright"
-                        }).addTo(map)
+                        if(!miniMapAdded){
+                            let layerMinimap = L.tileLayer(capa.host);
+                            new L.Control.MiniMap(layerMinimap, {
+                                toggleDisplay: true,
+                                minimized: false,
+                                position: "bottomright"
+                            }).addTo(map);
+                            miniMapAdded = true;
+                        }
                     }
                     this.baseMap[capa.titulo] = baseLayer;
                 });
@@ -84,17 +101,24 @@ export const app = {
                 map.removeLayer(layer);
             }
         }
+
+        for (const key in this.baseMap) {
+            if (this.baseMap.hasOwnProperty(key)) {
+                const layerBase = this.baseMap[key];
+                map.removeLayer(layerBase);
+            }
+        }
         this.layers = {};
         this.baseMap = {};
     },
     
+    
 
     changeProfile: function (profile){
         this.profile = profile;
-        body.removeChild(mapDiv.parentNode.firstElementChild)
+        // body.removeChild(mapDiv.parentNode.firstElementChild)
         this.reset();
         this._load();
     }
 };
-
 
