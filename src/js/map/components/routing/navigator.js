@@ -13,7 +13,7 @@ L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let currentLat = -36.014389267137986; // Valor inicial para latitud
 let currentLon = -59.10090002591088;  // Valor inicial para longitud
 
-function getPosition(position) {
+function getPosition(position, control) {
     currentLat = position.coords.latitude;
     currentLon = position.coords.longitude;
     // map.setView([currentLat, currentLon], 28)
@@ -22,6 +22,9 @@ function getPosition(position) {
         L.latLng(currentLat, currentLon),
         L.latLng(latitud, longitud)
     ]);
+
+    control.route();
+
 }
 
 function handleGeolocationError(error) {
@@ -46,6 +49,7 @@ if (!navigator.geolocation) {
 
     L.Routing.errorControl(control).addTo(map);
 
-    // Usar watchPosition para rastrear la ubicación continuamente
-    navigator.geolocation.watchPosition(getPosition, handleGeolocationError);
+    navigator.geolocation.watchPosition(function(position) {
+        getPosition(position, control);
+    }, handleGeolocationError);
 }
