@@ -23,9 +23,9 @@ form.addEventListener("submit", (e) => {
             form.reset();
             const message = new Notification(MESSAGES_TYPES.MESSAGE_SENT, CLASS_NAME_TYPES.SUCESS);
             document.body.appendChild(message.createNotification());
-            setTimeout(()=> {
-                window.location.href = "../../../../../index.html"
-            }, 1500);
+            // setTimeout(()=> {
+            //     window.location.href = "../../../../../index.html"
+            // }, 1500);
         } else {
             const message = new Notification(MESSAGES_TYPES.MESSAJE_REJECTED, CLASS_NAME_TYPES.REJECTED);
             document.body.appendChild(message.createNotification());

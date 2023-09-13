@@ -317,6 +317,10 @@ button[type="reset"] {
         width: 100%;
         overflow-y: scroll;
     }
+
+    header{
+        width: 96.8%;
+    }
     
     header> :first-child>a {
         width: 20%;
@@ -334,6 +338,12 @@ button[type="reset"] {
     *::-webkit-scrollbar-track,
     *::-webkit-scrollbar-thumb {
         visibility: hidden;
+    }
+
+    .message-container {
+        top: 40%;
+        left: 35%;
+        width: 25%;
     }
 }
 

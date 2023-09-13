@@ -134,6 +134,14 @@ textarea {
     height: 3em;
 }
 
+@media (min-width: 1586px){
+    header> :first-child>a {
+        width: 10%;
+    }
+    header> :first-child>img {
+        width: 20%;
+    }
+}
 
 /* Mobile responsive */
 @media (max-width: 768px) {

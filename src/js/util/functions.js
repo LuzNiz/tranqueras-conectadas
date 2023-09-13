@@ -1,5 +1,6 @@
 import { map, mapDiv } from "../main.js";
 import { app } from "../app.js";
+import { login } from "../map/components/login/login-logic.js";
 import { USER_STATES, RESPONSIVE_DISPLAYS, SIGN_IN_STATUS, OPTIONS_MENU, CLASS_NAME_TYPES, MESSAGES_TYPES } from "./dictionary.js";
 import { Notification } from "../../models/Notifications.js";
 
@@ -105,7 +106,11 @@ function insertHeader() {
                 ${window.innerWidth > RESPONSIVE_DISPLAYS.MOBILE ?
                 `
                 <div>
-                    <button id="signInButton" class="button">${SIGN_IN_STATUS.SIGN_IN}</button>
+                ${app.profile === USER_STATES.IS_NOT_LOGGED ?
+                    `<button id="signInButton" class="button">${SIGN_IN_STATUS.SIGN_IN}</button>`
+                    :
+                    `<button id="logoutbtn" class="button">${SIGN_IN_STATUS.SIGN_UP}</button>`
+                }
                     <div id="toggle-options">
                         <img src="./images/down_arrow_icon.png">
                     </div>
@@ -122,7 +127,11 @@ function menuToggle() {
         <div id="menuToggleContainer" class='menu-toggle hidden box-shadow'>
             <h3>Tranqueras Conectadas </h3>
             <ul>
-                <li><a id="signInButton">${SIGN_IN_STATUS.SIGN_IN}</a></li>
+            ${app.profile === USER_STATES.IS_NOT_LOGGED ?
+                `<li><a id="signInButton">${SIGN_IN_STATUS.SIGN_IN}</a></li>`
+                :
+                `<li><a id="logoutbtn">${SIGN_IN_STATUS.SIGN_UP}</a></li>`
+            }
                 <li><a href="./src/js/map/components/help/help.html">${OPTIONS_MENU.HELP_MENU}</a></li>
             </ul>
             <footer>
@@ -188,6 +197,19 @@ function insertLoad() {
     return loadContainer;
 }
 
+function getSessionCookie() {
+    const name = "sessionToken=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return "";
+}
+
 export { 
     openHTMLNavigator, 
     createPopUp, 
@@ -196,4 +218,5 @@ export {
     addToggleOptions, 
     loadLogin, 
     insertLoad,
+    getSessionCookie
 };

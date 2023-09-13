@@ -29,6 +29,13 @@
     border-bottom: 2px solid #061225;
 }
 
+@media (min-width: 1586px){
+    .modal {
+        top: 20% !important;
+        left: 38%;
+    }
+}
+
 @media (max-width: 768px) {
     .modal {
     top: 140px;

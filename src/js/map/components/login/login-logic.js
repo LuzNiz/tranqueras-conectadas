@@ -6,6 +6,29 @@ import { USER_STATES, MESSAGES_TYPES, CLASS_NAME_TYPES, SIGN_IN_STATUS } from ".
 export const login = {
     res: {},
 
+    _setCookie: function (name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+        const cookieValue = encodeURIComponent(name) + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString();
+        document.cookie = cookieValue;
+    },
+
+    _getCookie: function (name) {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            const cookieParts = cookie.split('=');
+            if (cookieParts[0] === name) {
+                return decodeURIComponent(cookieParts[1]);
+            }
+        }
+        return null;
+    },
+    
+    _deleteCookie: function (name) {
+        document.cookie = encodeURIComponent(name) + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    },
+
     _ajax: function (data, callback) {
 
         let xhr = new XMLHttpRequest();
@@ -148,6 +171,8 @@ export const login = {
                     window.location.href = "../../../../../index.html"
                 }, 1500);
             } else {
+                this._setCookie('username', name, 1);
+                this._setCookie('isLoggedIn', 'true', 1);
                 const notification = new Notification(MESSAGES_TYPES.CORRECT_LOGIN, CLASS_NAME_TYPES.SUCESS )
                 mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
                 const modalContainer = document.getElementById('loginModal').parentNode;
@@ -177,6 +202,8 @@ export const login = {
                 }
             };
         login._ajax(data, (res) => {
+            login._deleteCookie('username');
+            login._deleteCookie('isLoggedIn');
             const notification = new Notification(MESSAGES_TYPES.CORRECT_SING_UP, CLASS_NAME_TYPES.SUCESS);
             mapDiv.insertAdjacentElement('afterEnd', notification.createNotification());
             const buttonSingIn = document.getElementById('logoutbtn');

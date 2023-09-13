@@ -1,6 +1,6 @@
 import { Layer } from "../models/Layer.js"
 import { insertHeader, menuToggle, addToggleOptions, loadLogin } from "./util/functions.js";
-import { body, map, mapDiv} from "./main.js";
+import { map } from "./main.js";
 import { USER_STATES, MAP_TYPE } from "./util/dictionary.js";
 import { login } from "./map/components/login/login-logic.js";
 
@@ -15,6 +15,15 @@ export const app = {
     layers: {},
 
     _load: function () {
+        const isLoggedIn = login._getCookie('isLoggedIn');
+
+        if (isLoggedIn === 'true') {
+            this.profile = USER_STATES.IS_LOGGED;
+        }
+
+        console.log(`EL PERFIL DE LA APP ES: ${this.profile}`);
+
+
         const mapDiv = document.getElementById('map');
         if(!document.querySelector('header')){
             const headerContent = insertHeader();
