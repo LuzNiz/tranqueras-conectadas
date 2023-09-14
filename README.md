@@ -20,7 +20,7 @@ Questo progetto si concentra sulla geolocalizzazione e sull'instradamento delle 
 
 </details>
 
-![913shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/234d8456-67d0-4072-8826-d20e643483ee)
+![562shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/5615cc39-cd2c-4bbc-9ae1-64f9df579921)
 
 ## Objetivos
 
@@ -38,8 +38,8 @@ L'obiettivo principale di questo progetto è fornire un sistema di geolocalizzaz
 
 </details>
 
-![401shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/b38a211c-4602-403b-bae6-94a206182149)
-
+![211shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/b783cb1f-ed78-4957-a47f-df90de77c3e5)
+![96shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/dcbef0c6-8654-4546-bcc8-bf71ff892726)
 ## Servicios
 
  El proyecto ofrece los siguientes servicios:
@@ -71,4 +71,4 @@ Il progetto offre i seguenti servizi:
 
 </details>
 
-![145shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/f63484d5-1b71-4a6e-a7f8-d60975ccf3e7)
+![839shots_so](https://github.com/LuzNiz/tranqueras-conectadas/assets/110864533/8f1d4612-0242-4ff3-b4f8-5f0c96de0ea9)
