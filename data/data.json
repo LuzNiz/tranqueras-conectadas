@@ -68,16 +68,12 @@
             "attribution": "Municipalidad de Las Flores",
             "short_abstract": "Tranqueras Conectadas",
             "class": "",
-            "layers": [
-                "cuarteles",
-                "tranqueras_cpr_DEMO",
-                "tranqueras_patentes_colocadas"
-                
+            "layers": [ 
             ],
             "seccion": "tranqueras-conectadas",
             "servicio": "WFS",
             "version": "2.0.0",
-            "host": "https://mapas.lasflores.net.ar/geoserver/tranqueras_conectadas/ows"
+            "host": ""
         }
     ]
 }
